@@ -5,19 +5,19 @@ import TextAreaAutoSize from "react-textarea-autosize";
 
 import { cn } from "@/lib/utils";
 
-interface TitleInputProps {
+interface NodeTitleInputProps {
   initialTitle?: string;
   onChange?: (value: string) => void;
   preview?: boolean;
   className?: string;
 }
 
-const TitleInput = ({
+const NodeTitleInput = ({
   initialTitle,
   onChange,
   preview,
   className,
-}: TitleInputProps) => {
+}: NodeTitleInputProps) => {
   const inputRef = useRef<ElementRef<"textarea">>(null);
 
   const [isEditing, setIsEditing] = useState(false);
@@ -87,4 +87,4 @@ const TitleInput = ({
   );
 };
 
-export default TitleInput;
+export default NodeTitleInput;

@@ -1,13 +1,14 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import { TaskRegistry } from "@/lib/workflow/node/registry";
-import { TaskType } from "@/types/task";
-import { ListCheck } from "lucide-react";
 import React, { useCallback } from "react";
-import TitleInput from "./_components/TitleInput";
 import { useReactFlow } from "@xyflow/react";
+
+import { TaskType } from "@/types/task";
 import { AppNode } from "@/types/appNode";
+
+import { TaskRegistry } from "@/lib/workflow/node/registry";
+
+import NodeTitleInput from "./_components/NodeTitleInput";
 import TaskBadges from "./_components/TaskBadges";
 
 interface NodeHandlerProps {
@@ -40,7 +41,7 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
               {task.label}
             </p>
           )}
-          <TitleInput
+          <NodeTitleInput
             initialTitle={title}
             // not editable || preview
             preview={!editable}

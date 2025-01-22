@@ -7,7 +7,7 @@ import { AppNodeData } from "@/types/appNode";
 
 import { cn } from "@/lib/utils";
 
-import TitleInput from "./_components/TitleInput";
+import NodeTitleInput from "./_components/NodeTitleInput";
 
 const RootNodeComponent = (props: NodeProps) => {
   const nodeData = props.data as AppNodeData;
@@ -80,7 +80,7 @@ const RootNodeComponent = (props: NodeProps) => {
         onDoubleClick={onNodeDubleClick}
         className={cn("drag-handle cursor-pointer px-10 py-8")}
       >
-        <TitleInput
+        <NodeTitleInput
           initialTitle={nodeData.nodeTitle}
           onChange={updateNodeTitle}
           className="workflow-title-textarea text-7xl font-bold text-center content"
