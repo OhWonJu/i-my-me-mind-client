@@ -2,18 +2,23 @@
 
 import { useCallback } from "react";
 import { useReactFlow } from "@xyflow/react";
+import { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 
 import { AppNode } from "@/types/appNode";
 import { TaskBlock, TaskBlockType } from "@/types/task";
 
 import { ChecklistBlock, MarkdownBlock, MemoBlock } from "../blocks";
+import BlockCard from "../blocks/_components/BlockCard";
+import { BlockHandler } from "../blocks/_components/BlockHandler";
 
 const NodeBlockField = ({
   block,
   nodeId,
+  dragHandleProps,
 }: {
   block: TaskBlock;
   nodeId: string;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }) => {
   const { updateNodeData, getNode } = useReactFlow();
   const node = getNode(nodeId) as AppNode;
@@ -35,33 +40,57 @@ const NodeBlockField = ({
   switch (block.type) {
     case TaskBlockType.CHECKLIST:
       return (
-        <ChecklistBlock
-          nodeId={nodeId}
-          block={block}
-          value={value}
-          editable={editable}
-          updateNodeBlockValue={updateNodeBlockValue}
-        />
+        <BlockCard>
+          <BlockHandler
+            nodeId={nodeId}
+            blockName={block.name}
+            blockType={block.type}
+            dragHandleProps={dragHandleProps}
+          />
+          <ChecklistBlock
+            nodeId={nodeId}
+            block={block}
+            value={value}
+            editable={editable}
+            updateNodeBlockValue={updateNodeBlockValue}
+          />
+        </BlockCard>
       );
     case TaskBlockType.MEMO:
       return (
-        <MemoBlock
-          nodeId={nodeId}
-          block={block}
-          value={value}
-          editable={editable}
-          updateNodeBlockValue={updateNodeBlockValue}
-        />
+        <BlockCard>
+          <BlockHandler
+            nodeId={nodeId}
+            blockName={block.name}
+            blockType={block.type}
+            dragHandleProps={dragHandleProps}
+          />
+          <MemoBlock
+            nodeId={nodeId}
+            block={block}
+            value={value}
+            editable={editable}
+            updateNodeBlockValue={updateNodeBlockValue}
+          />
+        </BlockCard>
       );
     case TaskBlockType.MARKDOWN:
       return (
-        <MarkdownBlock
-          nodeId={nodeId}
-          block={block}
-          value={value}
-          editable={editable}
-          updateNodeBlockValue={updateNodeBlockValue}
-        />
+        <BlockCard className="min-h-[500px]">
+          <BlockHandler
+            nodeId={nodeId}
+            blockName={block.name}
+            blockType={block.type}
+            dragHandleProps={dragHandleProps}
+          />
+          <MarkdownBlock
+            nodeId={nodeId}
+            block={block}
+            value={value}
+            editable={editable}
+            updateNodeBlockValue={updateNodeBlockValue}
+          />
+        </BlockCard>
       );
     default:
       return (

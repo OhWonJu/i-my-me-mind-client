@@ -32,22 +32,15 @@ const MemoBlock = ({
   };
 
   return (
-    <div className="flex-1 w-full pb-6">
-      <BlockHandler
-        nodeId={nodeId}
-        blockName={block.name}
-        blockType={block.type}
-      />
-      <TextAreaAutoSize
-        ref={inputRef}
-        value={internalValue || ""}
-        placeholder="내용을 입력해주세요...."
-        disabled={!editable}
-        onChange={(e) => onInput(e.target.value)}
-        onBlur={disableInput}
-        className="flex-1 w-full h-full min-h-[150px] text-xs bg-transparent break-keep outline-none resize-none text-wrap px-8"
-      />
-    </div>
+    <TextAreaAutoSize
+      ref={inputRef}
+      value={internalValue || ""}
+      placeholder="내용을 입력해주세요."
+      disabled={!editable}
+      onChange={(e) => onInput(e.target.value)}
+      onBlur={disableInput}
+      className="flex-1 w-full h-full min-h-[150px] placeholder:text-primary/30 text-xs bg-transparent break-keep outline-none resize-none text-wrap px-8"
+    />
   );
 };
 

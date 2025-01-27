@@ -38,14 +38,8 @@ const MarkdownBlock = ({
     []
   );
 
-  // Renders the editor instance using a React component.
   return (
-    <article className="flex-1 min-h-[500px] w-full pb-6">
-      <BlockHandler
-        nodeId={nodeId}
-        blockName={block.name}
-        blockType={block.type}
-      />
+    <article className="h-full w-full ">
       <Editor
         nodeId={nodeId}
         block={block}

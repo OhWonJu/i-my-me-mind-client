@@ -1,39 +1,117 @@
 "use client";
 
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useCallback } from "react";
+import { useReactFlow } from "@xyflow/react";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 
 import { TaskBlock } from "@/types/task";
+import { AppNode } from "@/types/appNode";
+
+import { cn } from "@/lib/utils";
 
 import NodeBlockField from "./NodeBlockField";
 
-export const NodeBlocks = ({ children }: PropsWithChildren<{}>) => {
+const reorder = (list: TaskBlock[], startIndex: number, endIndex: number) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+export const NodeBlocks = ({
+  children,
+  nodeId,
+}: PropsWithChildren<{ nodeId: string }>) => {
+  const { getNode, updateNodeData } = useReactFlow();
+  const node = getNode(nodeId) as AppNode;
+  const blocklist = node.data.blockList;
+
+  const onDragEnd = useCallback(
+    (result: any) => {
+      if (!result.destination) {
+        return;
+      }
+
+      if (result.destination.index === result.source.index) {
+        return;
+      }
+
+      const newBlocklist = reorder(
+        blocklist,
+        result.source.index,
+        result.destination.index
+      );
+
+      updateNodeData(nodeId, {
+        blockList: newBlocklist,
+      });
+    },
+    [blocklist, nodeId, updateNodeData]
+  );
+
   return (
     <OverlayScrollbarsComponent
       defer
       options={{ scrollbars: { autoHide: "scroll" } }}
     >
-      <div className="nowheel nodarg flex flex-col w-full overflow-hidden overflow-y-auto pb-4">
-        {children}
+      <div className="nowheel nodarg relative flex flex-col w-full overflow-hidden overflow-y-auto pb-4">
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId={`${nodeId}`}>
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {children}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </OverlayScrollbarsComponent>
   );
 };
 
 export const NodeBlock = ({
+  index,
   block,
   nodeId,
 }: {
+  index: number;
   block: TaskBlock;
   nodeId: string;
 }) => {
   // TODO: 전역 상태로 preiew 인지 확인 후 NodeBlockField 에 전달
 
   return (
-    <div className="relative flex justify-start pt-4 w-full">
-      <div className="bg-card w-full">
-        <NodeBlockField block={block} nodeId={nodeId} />
-      </div>
-    </div>
+    <Draggable key={block.name} draggableId={block.name} index={index}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          className={cn(
+            "pt-4 w-full",
+            snapshot.isDragging && "!left-[5%] !w-[90%] !h-fit"
+          )}
+          style={{
+            ...provided.draggableProps.style,
+            top: undefined,
+          }}
+        >
+          <div
+            className={cn(
+              "bg-card w-full",
+              snapshot.isDragging && "rounded-md shadow-md"
+            )}
+          >
+            <NodeBlockField
+              block={block}
+              nodeId={nodeId}
+              dragHandleProps={provided.dragHandleProps}
+            />
+          </div>
+        </div>
+      )}
+    </Draggable>
   );
 };

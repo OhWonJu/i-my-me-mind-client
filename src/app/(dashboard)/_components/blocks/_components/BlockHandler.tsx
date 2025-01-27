@@ -2,7 +2,8 @@
 
 import React, { useCallback } from "react";
 import { useReactFlow } from "@xyflow/react";
-import { Trash } from "lucide-react";
+import { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
+import { GripVerticalIcon, Trash } from "lucide-react";
 
 import { AppNode } from "@/types/appNode";
 
@@ -15,10 +16,12 @@ export const BlockHandler = ({
   nodeId,
   blockName,
   blockType,
+  dragHandleProps,
 }: {
   nodeId: string;
   blockName: string;
   blockType: TaskBlockType;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }) => {
   const block = BlockRegistry[blockType];
 
@@ -42,16 +45,28 @@ export const BlockHandler = ({
     <div className="group flex justify-between items-center w-full min-h-[50px] px-4 mb-2">
       <Label className="text-xs flex items-center gap-1">
         {block.icon && <block.icon size={15} />}
-        {blockName.split("-")[0]}
+        <span>{blockName.split("-")[0]}</span>
       </Label>
-      <Button
-        className="hidden group-hover:flex hover:bg-primary-foreground h-7 w-7"
-        variant="plain"
-        size="icon"
-        onClick={removeBlock}
-      >
-        <Trash size={14} />
-      </Button>
+      <div className="flex">
+        <Button
+          variant="plain"
+          size="icon"
+          onClick={removeBlock}
+          className="hidden group-hover:flex hover:bg-primary-foreground h-7 w-7"
+        >
+          <Trash size={14} />
+        </Button>
+
+        <Button
+          variant="plain"
+          size="icon"
+          onClick={() => null}
+          {...dragHandleProps}
+          className="hidden group-hover:flex hover:bg-primary-foreground h-7 w-7"
+        >
+          <GripVerticalIcon size={14} />
+        </Button>
+      </div>
     </div>
   );
 };

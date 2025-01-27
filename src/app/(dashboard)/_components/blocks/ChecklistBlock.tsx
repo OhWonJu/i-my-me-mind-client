@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Plus, Trash } from "lucide-react";
+import { Check, Plus, X } from "lucide-react";
 
 import { BlockProps } from "@/types/appNode";
 
@@ -68,42 +68,35 @@ const ChecklistBlock = ({
   };
 
   return (
-    <div className="flex-1 w-full pb-6">
-      <BlockHandler
-        nodeId={nodeId}
-        blockName={block.name}
-        blockType={block.type}
-      />
-      <div className="group/checklist flex flex-col flex-1 items-center px-6 gap-y-1">
-        {internalValue.map((item, index) => (
-          <ChecklistItem
-            key={`${block.name}-${index}`}
-            isDone={item.isDone}
-            value={item.value}
-            editable={editable}
-            toggleAction={() => toggleChecklistItem(index)}
-            updateAction={(newValue: string) =>
-              updateChecklistItemValue(index, newValue)
-            }
-            deleteAction={() => removeChecklistItem(index)}
-          />
-        ))}
-        {editable && (
-          <div className="w-7 h-7 mt-2">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={addChecklistItem}
-              className="hidden group-hover/checklist:flex group hover:border-primary hover:bg-transparent w-full h-full"
-            >
-              <Plus
-                size={14}
-                className="stroke-primary-foreground group-hover:stroke-primary"
-              />
-            </Button>
-          </div>
-        )}
-      </div>
+    <div className="group/checklist flex flex-col flex-1 items-center px-6 gap-y-1">
+      {internalValue.map((item, index) => (
+        <ChecklistItem
+          key={`${block.name}-${index}`}
+          isDone={item.isDone}
+          value={item.value}
+          editable={editable}
+          toggleAction={() => toggleChecklistItem(index)}
+          updateAction={(newValue: string) =>
+            updateChecklistItemValue(index, newValue)
+          }
+          deleteAction={() => removeChecklistItem(index)}
+        />
+      ))}
+      {editable && (
+        <div className="w-7 h-7 mt-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={addChecklistItem}
+            className="hidden group-hover/checklist:flex group hover:border-primary hover:bg-transparent w-full h-full"
+          >
+            <Plus
+              size={14}
+              className="stroke-primary-foreground group-hover:stroke-primary"
+            />
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
@@ -145,7 +138,7 @@ const ChecklistItem = ({
         disabled={!editable}
         onChange={(e) => setInternalValue(e.target.value)}
         onBlur={(e) => updateAction(e.target.value)}
-        className="!text-xs border-none truncate disabled:opacity-100 bg-transparent focus-visible:ring-offset-0 focus-visible:ring-0 p-0"
+        className="!text-xs border-none truncate disabled:opacity-100 placeholder:text-primary/30 bg-transparent focus-visible:ring-offset-0 focus-visible:ring-0 p-0"
       />
       <div className="h-full min-w-7">
         {editable && (
@@ -155,7 +148,7 @@ const ChecklistItem = ({
             size="icon"
             onClick={deleteAction}
           >
-            <Trash
+            <X
               size={14}
               className="stroke-primary-foreground group-hover:stroke-primary"
             />
