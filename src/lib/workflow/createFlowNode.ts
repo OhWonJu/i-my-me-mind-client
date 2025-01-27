@@ -22,7 +22,6 @@ export function CreateFlowNode(
 
 export function CreateRootFlowNode(
   workFlowTitle: string,
-  nodeType: TaskType,
   position?: { x: number; y: number }
 ): AppNode {
   return {
@@ -30,7 +29,7 @@ export function CreateRootFlowNode(
     type: "Root",
     dragHandle: ".drag-handle",
     data: {
-      type: nodeType,
+      type: TaskType.ROOT,
       blockValues: {},
       blockList: [],
       nodeTitle: workFlowTitle,

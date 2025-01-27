@@ -2,10 +2,12 @@
 
 import React from "react";
 
-import { useModal } from "@/stores/useModalStore";
-import { ModalBody, ModalLayout } from "../ui/Modal";
 import { TaskBlockType } from "@/types/task";
+
 import { BlockRegistry } from "@/lib/workflow/block/registry";
+import { useModal } from "@/stores/useModalStore";
+
+import { ModalBody, ModalLayout } from "../ui/Modal";
 import { Button } from "../ui";
 
 const taskBlocks = BlockRegistry;

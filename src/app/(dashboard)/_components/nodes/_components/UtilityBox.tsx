@@ -2,9 +2,9 @@
 
 import React, { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { useReactFlow } from "@xyflow/react";
-import { Blocks, EllipsisVertical, Trash, X } from "lucide-react";
+import { Blocks, CopyIcon, EllipsisVertical, Trash, X } from "lucide-react";
 
-import { AppNodeData } from "@/types/appNode";
+import { AppNode, AppNodeData } from "@/types/appNode";
 import { TaskBlockType } from "@/types/task";
 
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { useModal } from "@/stores/useModalStore";
 
 import { Button } from "@/components/ui";
+import { CreateFlowNode } from "@/lib/workflow/createFlowNode";
 
 const UtilityBox = ({
   nodeId,
@@ -28,7 +29,7 @@ const UtilityBox = ({
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
   const { isOpen, onOpen } = useModal();
-  const { setNodes, setEdges, updateNodeData } = useReactFlow();
+  const { getNode, updateNodeData, addNodes, deleteElements } = useReactFlow();
 
   const addNewBlock = ({
     name,
@@ -49,15 +50,27 @@ const UtilityBox = ({
     });
   };
 
-  // TODO : 모달 안내
-  const deleteNode = useCallback(() => {
-    setNodes((prevNodes) => prevNodes.filter((node) => node.id !== nodeId));
-    setEdges((prevEdges) =>
-      prevEdges.filter(
-        (edge) => !(edge.source === nodeId || edge.target === nodeId)
-      )
-    );
-  }, [nodeId, setEdges, setNodes]);
+  const copyNode = () => {
+    const targetNode = getNode(nodeId) as AppNode;
+
+    const targetNodeX = targetNode?.position.x;
+    const targetNodeY = targetNode?.position.y;
+
+    const newNode = CreateFlowNode(targetNode?.data.type, {
+      x: targetNodeX + 50,
+      y: targetNodeY + 50,
+    });
+
+    addNodes([newNode]);
+    updateNodeData(newNode.id, {
+      ...nodeData,
+      nodeTitle: `${nodeData.nodeTitle} 복사본 `,
+    });
+  };
+
+  const deleteNode = () => {
+    deleteElements({ nodes: [{ id: nodeId }] });
+  };
 
   useLayoutEffect(() => {
     if (!selected) setExtend(false);
@@ -102,6 +115,10 @@ const UtilityBox = ({
             >
               <Blocks size={16} className="mr-2" />
               <span className="text-xs">블록 추가하기</span>
+            </Button>
+            <Button onClick={copyNode} className="hover:bg-secondary/20">
+              <CopyIcon size={16} className="mr-2" />
+              <span className="text-xs">노드 복사하기</span>
             </Button>
             <Button
               onClick={() =>

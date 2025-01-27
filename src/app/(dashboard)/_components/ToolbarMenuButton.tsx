@@ -16,10 +16,10 @@ const ToolbarMenuButton = ({ taskType }: { taskType: TaskType }) => {
   return (
     <Button
       variant="plain"
-      className="justify-start items-center hover:bg-primary/5 text-primary w-full"
       onClick={() => {}}
       draggable
       onDragStart={(event) => onDragStart(event, task.type)}
+      className="justify-start items-center hover:bg-primary/5 text-primary w-full"
     >
       <div className="flex gap-2 items-center">
         {task.icon && <task.icon size={15} />}

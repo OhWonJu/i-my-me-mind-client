@@ -54,7 +54,7 @@ const FlowEditor = () => {
     // TODO : 아무런 노드가 없을 때 루트노드 초기화
 
     // workFlow title
-    const rootNode = CreateRootFlowNode("무제", TaskType.ROOT, { x: 1, y: 1 });
+    const rootNode = CreateRootFlowNode("무제", { x: 1, y: 1 });
     setNodes([rootNode]);
 
     setViewport({ x: 1, y: 1, zoom: 1.2 });
@@ -106,6 +106,16 @@ const FlowEditor = () => {
     [setEdges]
   );
 
+  const isValidConnection = useCallback((connection: Edge | Connection) => {
+    if (connection.source === connection.target) return false;
+
+    // const source = nodes.find((node) => node.id === connection.source);
+    // const target = nodes.find((node) => node.id === connection.target);
+    // if (!source || !target) return false;
+
+    return true;
+  }, []);
+
   return (
     <div ref={reactFlowWrapper} className="w-full h-full">
       <ReactFlow
@@ -123,6 +133,7 @@ const FlowEditor = () => {
         onDrop={onDrop}
         onConnect={onConnect}
         connectionMode={ConnectionMode.Loose}
+        isValidConnection={isValidConnection}
         minZoom={0.4}
       >
         <Controls position="bottom-right" fitViewOptions={fitViewOptions} />

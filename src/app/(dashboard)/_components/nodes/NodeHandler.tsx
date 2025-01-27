@@ -21,7 +21,7 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
 
   const { updateNodeData, getNode } = useReactFlow();
   const node = getNode(nodeId) as AppNode;
-  const { title, editable } = node?.data;
+  const { nodeTitle, editable } = node?.data;
 
   const updateNodeTitle = useCallback(
     (newValue: string) => {
@@ -33,7 +33,7 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
   );
 
   return (
-    <div className="drag-handle flex items-center gap-2 p-4 bg-card">
+    <div className="drag-handle flex items-center gap-2 p-4 bg-card border-b border-background">
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-1 items-center mr-4 overflow-hidden space-x-2">
           {task.label && (
@@ -42,7 +42,7 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
             </p>
           )}
           <NodeTitleInput
-            initialTitle={title}
+            initialTitle={nodeTitle}
             // not editable || preview
             preview={!editable}
             onChange={updateNodeTitle}
