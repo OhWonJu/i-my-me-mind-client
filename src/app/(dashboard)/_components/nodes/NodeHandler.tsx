@@ -51,14 +51,6 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
         <div className="flex gap-1 items-center">
           {/* TOOD: 카드 타입, 등등 표기하기 */}
           <TaskBadges taskType={taskType} nodeId={nodeId} />
-          {/* <Button
-            variant="plain"
-            size="icon"
-            onClick={() => null}
-            className="drag-handle cursor-grab hover:bg-card-foreground"
-          >
-            <GripVerticalIcon size={20} />
-          </Button> */}
         </div>
       </div>
     </div>

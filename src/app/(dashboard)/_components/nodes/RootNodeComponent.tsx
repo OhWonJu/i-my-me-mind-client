@@ -92,4 +92,4 @@ const RootNodeComponent = (props: NodeProps) => {
 
 export default React.memo(RootNodeComponent);
 
-RootNodeComponent.displayName = "NodeComponent";
+RootNodeComponent.displayName = "RootNodeComponent";

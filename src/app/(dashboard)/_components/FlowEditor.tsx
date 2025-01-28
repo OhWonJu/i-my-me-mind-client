@@ -106,15 +106,28 @@ const FlowEditor = () => {
     [setEdges]
   );
 
-  const isValidConnection = useCallback((connection: Edge | Connection) => {
-    if (connection.source === connection.target) return false;
+  const isValidConnection = useCallback(
+    (connection: Edge | Connection) => {
+      if (connection.source === connection.target) return false;
 
-    // const source = nodes.find((node) => node.id === connection.source);
-    // const target = nodes.find((node) => node.id === connection.target);
-    // if (!source || !target) return false;
+      // const source = nodes.find((node) => node.id === connection.source);
+      // const target = nodes.find((node) => node.id === connection.target);
+      // if (!source || !target) return false;
 
-    return true;
-  }, []);
+      const findExistEdge = (edge: Edge) =>
+        (edge.source === connection.source &&
+          edge.target === connection.target) ||
+        (edge.target === connection.source &&
+          edge.source === connection.target);
+
+      const oldEdge = edges.find(findExistEdge);
+
+      if (oldEdge) return false;
+
+      return true;
+    },
+    [edges]
+  );
 
   return (
     <div ref={reactFlowWrapper} className="w-full h-full">
