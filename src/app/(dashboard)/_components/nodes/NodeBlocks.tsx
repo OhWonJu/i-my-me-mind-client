@@ -85,33 +85,74 @@ export const NodeBlock = ({
 
   return (
     <Draggable key={block.name} draggableId={block.name} index={index}>
-      {(provided, snapshot) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          className={cn(
-            "pt-4 w-full",
-            snapshot.isDragging && "!left-[5%] !w-[90%] !h-fit"
-          )}
-          style={{
+      {(provided, snapshot) => {
+        if (snapshot.isDragging) {
+          let offsetEl = document.querySelector(
+            `[data-rfd-draggable-id='${provided.draggableProps["data-rfd-draggable-id"]}']`
+          ) as HTMLElement;
+
+          // @ts-ignore
+          provided.draggableProps.style = {
             ...provided.draggableProps.style,
-            top: undefined,
-          }}
-        >
+            left: offsetEl ? offsetEl.offsetLeft : 0,
+            top: offsetEl ? offsetEl.offsetTop : 0,
+          };
+        }
+
+        return (
           <div
-            className={cn(
-              "bg-card w-full",
-              snapshot.isDragging && "rounded-md shadow-md"
-            )}
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            className={cn("pt-4 w-full", snapshot.isDragging && "!w-full")}
+            style={{
+              ...provided.draggableProps.style,
+            }}
           >
-            <NodeBlockField
-              block={block}
-              nodeId={nodeId}
-              dragHandleProps={provided.dragHandleProps}
-            />
+            <div
+              className={cn(
+                "bg-card w-full",
+                snapshot.isDragging && "rounded-md shadow-md"
+              )}
+            >
+              <NodeBlockField
+                block={block}
+                nodeId={nodeId}
+                dragHandleProps={provided.dragHandleProps}
+              />
+            </div>
           </div>
-        </div>
-      )}
+        );
+      }}
     </Draggable>
+
+    // <Draggable key={block.name} draggableId={block.name} index={index}>
+    //   {(provided, snapshot) => (
+    //     <div
+    //       ref={provided.innerRef}
+    //       {...provided.draggableProps}
+    //       className={cn(
+    //         "pt-4 w-full",
+    //         snapshot.isDragging && "!left-[5%] !w-[90%] !h-fit"
+    //       )}
+    //       style={{
+    //         ...provided.draggableProps.style,
+    //         top: undefined,
+    //       }}
+    //     >
+    //       <div
+    //         className={cn(
+    //           "bg-card w-full",
+    //           snapshot.isDragging && "rounded-md shadow-md"
+    //         )}
+    //       >
+    //         <NodeBlockField
+    //           block={block}
+    //           nodeId={nodeId}
+    //           dragHandleProps={provided.dragHandleProps}
+    //         />
+    //       </div>
+    //     </div>
+    //   )}
+    // </Draggable>
   );
 };
