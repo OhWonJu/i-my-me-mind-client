@@ -4,6 +4,8 @@ import "./globals.css";
 import "overlayscrollbars/overlayscrollbars.css";
 
 import ModalProvider from "@/components/providers/ModalProvider";
+import { QueryProvider } from "@/components/providers/QueryProvider";
+import AuthProvider from "@/components/providers/AuthProvider";
 
 const pretendard = localFont({
   src: "../fonts/PretendardVariable.woff2",
@@ -25,8 +27,12 @@ export default function RootLayout({
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={`${pretendard.className}`}>
-        <ModalProvider />
-        {children}
+        <QueryProvider>
+          <AuthProvider>
+            <ModalProvider />
+            {children}
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );
