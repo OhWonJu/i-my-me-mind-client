@@ -33,3 +33,12 @@ export const cookieParser = (cookie: string) => {
 
   return { key, value, cookieOptions };
 };
+
+export const isTokenExpired = (expiresAt?: number) => {
+  if (!expiresAt) return true;
+
+  const currentTime = Date.now();
+  const TEN_MINUTES_AGO_IN_MS = 60 * 10 * 1000;
+
+  return expiresAt * 1000 < currentTime + TEN_MINUTES_AGO_IN_MS;
+};

@@ -6,6 +6,7 @@ import "overlayscrollbars/overlayscrollbars.css";
 import ModalProvider from "@/components/providers/ModalProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
 import AuthProvider from "@/components/providers/AuthProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const pretendard = localFont({
   src: "../fonts/PretendardVariable.woff2",
@@ -28,10 +29,14 @@ export default function RootLayout({
     <html lang="kr" className={`${pretendard.variable}`}>
       <body className={`${pretendard.className}`}>
         <QueryProvider>
-          <AuthProvider>
-            <ModalProvider />
-            {children}
-          </AuthProvider>
+          <ModalProvider />
+          {children}
+          <Toaster
+            position="bottom-center"
+            toastOptions={{
+              className: "bg-card text-primary border-border",
+            }}
+          />
         </QueryProvider>
       </body>
     </html>

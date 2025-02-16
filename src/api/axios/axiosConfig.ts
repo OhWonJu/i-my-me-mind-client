@@ -6,6 +6,8 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
+import { isTokenExpired } from "@/lib/cookiePaser";
+
 import { ERROR_CODE, ErrorCode, ErrorMessage } from "../errorCode";
 
 class ClinetError extends Error {
@@ -23,7 +25,8 @@ export const axiosConfig = {
   withCredentials: true,
   headers: {
     accept: "application/json",
-    "Content-Type": "application/x-www-form-urlencoded",
+    // "Content-Type": "application/x-www-form-urlencoded",
+    "Content-Type": "application/json",
   },
 };
 
@@ -46,49 +49,27 @@ export const onError = (error: AxiosError) => {
 };
 
 export const onRequest = async (config: InternalAxiosRequestConfig) => {
-  const expiresAt = Number(localStorage.getItem("immmd_key"));
+  // const expiresAt = Number(localStorage.getItem("immmd_key"));
+  const expiresAt = Number(getCookie("immmd_key"));
 
-  if (!!expiresAt && isTokenExpired()) {
+  if (!!expiresAt && isTokenExpired(expiresAt)) {
     try {
       const res = await refreshAccessToken();
 
       if (!res.ok && res.errorCode) {
         throw new ClinetError(ERROR_CODE[res.errorCode], res.errorCode);
       }
-
-      if (res.immmd_key) {
-        localStorage.setItem("immmd_key", res.immmd_key);
-      } else {
-        localStorage.setItem("immmd_key", "");
-      }
     } catch (error) {
       // 리프레시 토큰 요청 실패 시 처리
       // window.location.href = `${process.env.NEXT_PUBLIC_CLIENT_URL}/?error=true`;
       // 위 방법은 에러를 지워버림 -> 에러바운더리 같은 걸로...
       console.error(error);
-      localStorage.setItem("immmd_key", "");
       throw error;
     }
   }
 
   return config;
 };
-
-function isTokenExpired() {
-  // const expiresAt = getExpiresAt();
-  const expiresAt = Number(localStorage.getItem("immmd_key"));
-
-  if (!expiresAt) return true;
-
-  const currentTime = Date.now();
-  const TEN_MINUTES_AGO_IN_MS = 60 * 10 * 1000;
-
-  // console.log(expiresAt * 1000);
-  // console.log(currentTime + TEN_MINUTES_AGO_IN_MS);
-
-  // 만료시간이 10분 이내로 떨어지면 토큰을 갱신해준다.
-  return expiresAt * 1000 < currentTime + TEN_MINUTES_AGO_IN_MS;
-}
 
 interface RefreshResponse {
   ok: boolean;
@@ -108,4 +89,16 @@ async function refreshAccessToken() {
   );
 
   return response.data as RefreshResponse;
+}
+
+function getCookie(cookieName: string) {
+  var cookieValue = null;
+  if (document.cookie) {
+    var array = document.cookie.split(escape(cookieName) + "=");
+    if (array.length >= 2) {
+      var arraySub = array[1].split(";");
+      cookieValue = unescape(arraySub[0]);
+    }
+  }
+  return cookieValue;
 }
