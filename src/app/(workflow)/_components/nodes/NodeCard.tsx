@@ -75,7 +75,7 @@ const NodeCard = ({
       <div
         onDoubleClick={onNodeDubleClick}
         className={cn(
-          "rounded-md cursor-pointer bg-background shadow-md overflow-hidden border-2 border-separate min-w-[400px] w-full min-h-[200px] h-full text-xs flex flex-col",
+          "rounded-xl cursor-pointer bg-card shadow-md overflow-hidden border-2 border-separate min-w-[400px] w-full min-h-[200px] h-full text-xs flex flex-col",
           isSelected && "border-primary"
         )}
       >

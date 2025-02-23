@@ -20,7 +20,7 @@ const Home = () => {
             signIn("google", { redirect: true, callbackUrl: "/" });
           }}
         >
-          <span>Google 게정으로 시작하기</span>
+          <span>Google 계정으로 시작하기</span>
         </Button>
         <Button
           variant="flat"

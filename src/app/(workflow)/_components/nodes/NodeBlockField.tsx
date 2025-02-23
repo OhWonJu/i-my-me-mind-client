@@ -24,6 +24,7 @@ const NodeBlockField = ({
   const node = getNode(nodeId) as AppNode;
   const value = node?.data.blockValues?.[block.name];
   const editable = node?.data.editable;
+  const selected = node?.selected ?? false;
 
   const updateNodeBlockValue = useCallback(
     (newValue: string) => {
@@ -87,7 +88,7 @@ const NodeBlockField = ({
             nodeId={nodeId}
             block={block}
             value={value}
-            editable={editable}
+            editable={editable && selected}
             updateNodeBlockValue={updateNodeBlockValue}
           />
         </BlockCard>

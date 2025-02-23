@@ -111,7 +111,8 @@ export const NodeBlock = ({
             <div
               className={cn(
                 "bg-card w-full",
-                snapshot.isDragging && "rounded-md shadow-md"
+                snapshot.isDragging &&
+                  "rounded-md shadow-md max-h-[300px] overflow-hidden"
               )}
             >
               <NodeBlockField

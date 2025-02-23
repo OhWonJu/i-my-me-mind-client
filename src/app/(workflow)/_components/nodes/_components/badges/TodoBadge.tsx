@@ -43,13 +43,12 @@ const TodoBadge = ({ nodeId }: { nodeId: string }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checklistValues, nodeId, updateNodeData]);
+
   return (
     <Badge
       className={cn(
         "gap-2 flex items-center text-xs p-1",
-        isDone
-          ? "bg-green-500 hover:bg-green-500"
-          : "bg-primary-foreground hover:bg-primary-foreground"
+        isDone ? "bg-green-500 hover:bg-green-500" : "bg-primary-foreground"
       )}
       onClick={() => updateNodeDone(!isDone)}
     >

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import { useTheme } from "next-themes";
 
 import "@blocknote/core/fonts/inter.css";
@@ -54,7 +54,6 @@ const MarkdownEditor = ({
 }: BlockProps) => {
   const [internalValue, setInternalValue] = useState(value);
 
-  const id = useId();
   const { resolvedTheme } = useTheme();
 
   const editor = useCreateBlockNote({
@@ -66,10 +65,10 @@ const MarkdownEditor = ({
     // uploadFile: handleUpload,
   });
 
-  // Renders the editor instance using a React component.
   return (
     <BlockNoteView
-      id={id}
+      id={block.name}
+      key={block.name}
       editor={editor}
       editable={editable}
       onChange={() =>

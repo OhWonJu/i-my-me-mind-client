@@ -9,7 +9,7 @@ import { AppNode } from "@/types/appNode";
 import { TaskRegistry } from "@/lib/workflow/node/registry";
 
 import NodeTitleInput from "./_components/NodeTitleInput";
-import TaskBadges from "./_components/TaskBadges";
+import TaskBadges from "./_components/badges/TaskBadges";
 
 interface NodeHandlerProps {
   nodeId: string;
@@ -33,7 +33,7 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
   );
 
   return (
-    <div className="drag-handle flex items-center gap-2 p-4 bg-card border-b border-background">
+    <div className="drag-handle flex items-center gap-2 p-4 bg-card border-b">
       <div className="flex justify-between items-center w-full">
         <div className="flex flex-1 items-center mr-4 overflow-hidden space-x-2">
           {task.label && (

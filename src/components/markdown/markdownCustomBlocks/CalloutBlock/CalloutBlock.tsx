@@ -143,7 +143,7 @@ const CalloutBlock = createReactBlockSpec(
             </Menu>
           </div>
 
-          <div className={style.inline_content} ref={props.contentRef} />
+          <div ref={props.contentRef} className={style.inline_content} />
         </div>
       );
     },

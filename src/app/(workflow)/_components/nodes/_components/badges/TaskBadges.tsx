@@ -2,6 +2,7 @@ import { TaskType } from "@/types/task";
 import React from "react";
 import TodoBadge from "./TodoBadge";
 import { TaskRegistry } from "@/lib/workflow/node/registry";
+import ToDoDateBadge from "./ToDoDateBadge";
 
 const TaskBadges = ({
   nodeId,
@@ -16,7 +17,12 @@ const TaskBadges = ({
     case "PLAIN":
       return;
     case "TODO":
-      return <TodoBadge nodeId={nodeId} />;
+      return (
+        <>
+          <ToDoDateBadge nodeId={nodeId} />
+          <TodoBadge nodeId={nodeId} />
+        </>
+      );
   }
 };
 
