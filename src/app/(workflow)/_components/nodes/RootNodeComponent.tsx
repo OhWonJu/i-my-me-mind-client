@@ -83,7 +83,7 @@ const RootNodeComponent = (props: NodeProps) => {
         <NodeTitleInput
           initialTitle={nodeData.nodeTitle}
           onChange={updateNodeTitle}
-          className="workflow-title-textarea text-7xl font-bold text-center content"
+          className="workflow-title-textarea text-7xl font-bold text-center"
         />
       </div>
     </>

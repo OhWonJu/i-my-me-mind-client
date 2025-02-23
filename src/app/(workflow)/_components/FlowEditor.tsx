@@ -17,6 +17,7 @@ import {
 
 import "@xyflow/react/dist/style.css";
 
+import { Workflow } from "@/types/schema";
 import { TaskType } from "@/types/task";
 import { AppNode } from "@/types/appNode";
 
@@ -40,8 +41,7 @@ const edgeTypes = {
 
 const fitViewOptions = { padding: 1 };
 
-// TODO: workflow typeprops {workflow}: {workflow: Workflow}
-const FlowEditor = () => {
+const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
@@ -49,28 +49,30 @@ const FlowEditor = () => {
 
   const { setViewport, screenToFlowPosition } = useReactFlow();
 
-  // 3:01:00 <- initial 관련
   useEffect(() => {
-    // TODO : 아무런 노드가 없을 때 루트노드 초기화
+    try {
+      const flow = JSON.parse(workflow.data ?? "{}");
 
-    // workFlow title
-    const rootNode = CreateRootFlowNode("무제", { x: 1, y: 1 });
-    setNodes([rootNode]);
+      if (flow) {
+        setNodes(flow.nodes || []);
+        setEdges(flow.edges || []);
+      }
 
-    setViewport({ x: 1, y: 1, zoom: 1.2 });
-  }, [screenToFlowPosition, setNodes, setViewport]);
+      // 기존 데이터가 없는 경우 초기 루트 노드 생성
+      if (!flow.nodes || flow.nodes.length === 0) {
+        const rootNode = CreateRootFlowNode(workflow.name, { x: 1, y: 1 });
+        setNodes([rootNode]);
+        setViewport({ x: 1, y: 1, zoom: 1.2 });
+      }
 
-  // useEffect(() => {
-  //   try {
-  //     const flow = JSON.parse(workflow.definition);
-  //     if (!flow) return;
-  //     setNodes(flow.nodes || []);
-  //     setEdges(flow.edges || []);
-  //     if (!flow.viewport) return;
-  //     const { x = 0, y = 0, zoom = 1 } = flow.viewport;
-  //     setViewport({ x, y, zoom }); // if use this => remove fitView
-  //   } catch (error) {}
-  // }, [workflow.definition, setNodes, setEdges, setViewport]);
+      if (!flow.viewport) return;
+      const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+      setViewport({ x, y, zoom }); // if use this => remove fitView
+    } catch (error) {
+      console.log(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [workflow.data, setNodes, setEdges, setViewport]);
 
   const onDragOver = useCallback((event: React.DragEvent) => {
     event.preventDefault();
@@ -139,7 +141,7 @@ const FlowEditor = () => {
         onEdgesChange={onEdgesChange}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
-        fitView
+        // fitView
         fitViewOptions={fitViewOptions}
         deleteKeyCode={null}
         onDragOver={onDragOver}
@@ -147,7 +149,7 @@ const FlowEditor = () => {
         onConnect={onConnect}
         connectionMode={ConnectionMode.Loose}
         isValidConnection={isValidConnection}
-        minZoom={0.4}
+        minZoom={0.2}
       >
         <Controls position="bottom-right" fitViewOptions={fitViewOptions} />
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />

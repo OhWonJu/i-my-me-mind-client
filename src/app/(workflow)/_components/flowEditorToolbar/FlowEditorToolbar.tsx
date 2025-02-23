@@ -11,9 +11,10 @@ import {
 import { cn } from "@/lib/utils";
 
 import { ChevronLeft, CreditCard, DotMenu, Menu } from "@/components/icons";
-import ToolbarMenuButton from "./ToolbarMenuButton";
+import ToolbarMenuButton from "../ToolbarMenuButton";
 import { TaskType } from "@/types/task";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import WorkflowList from "./WorkflowList";
 
 interface FlowEditorToolbarProps {
   disabled?: boolean;
@@ -145,26 +146,8 @@ export const FlowEditorToolbar = ({
                     </div>
                   </div>
                 </AccordionTrigger>
-                {Array(30)
-                  .fill(0)
-                  .map((_, index) => (
-                    <AccordionContent key={index} className="pb-2">
-                      <div className="group select-none flex justify-between items-center hover:bg-card-foreground rounded-md cursor-pointer">
-                        <p
-                          className="flex-1 truncate pl-3 py-1 cursor-pointer"
-                          onClick={() => alert("ITEM")}
-                        >
-                          adasx adasd
-                        </p>
-                        <button
-                          className="px-3 py-1"
-                          onClick={() => alert("ITEM LIST")}
-                        >
-                          <DotMenu className="hidden group-hover:block w-3 h-3 rotate-90" />
-                        </button>
-                      </div>
-                    </AccordionContent>
-                  ))}
+
+                <WorkflowList />
               </AccordionItem>
             </Accordion>
           </div>

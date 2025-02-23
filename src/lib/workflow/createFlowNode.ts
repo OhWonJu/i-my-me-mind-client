@@ -25,7 +25,7 @@ export function CreateRootFlowNode(
   position?: { x: number; y: number }
 ): AppNode {
   return {
-    id: crypto.randomUUID(),
+    id: "root",
     type: "Root",
     dragHandle: ".drag-handle",
     data: {

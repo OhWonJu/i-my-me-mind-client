@@ -67,7 +67,7 @@ const NodeTitleInput = ({
           onChange={(e) => onInput(e.target.value)}
           maxRows={1}
           className={cn(
-            "nodrag flex-1 text-base font-bold bg-transparent break-words outline-none resize-none truncate text-nowrap",
+            "nodrag text-base font-bold bg-transparent break-words outline-none resize-none truncate text-nowrap",
             className
           )}
         />
