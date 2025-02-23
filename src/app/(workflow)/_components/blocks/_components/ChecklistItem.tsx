@@ -48,14 +48,16 @@ const ChecklistItem = ({
           )}
         />
       </Button>
+
       <Input
         value={internalValue || ""}
         placeholder="체크리스트를 입력해주세요."
         disabled={!editable}
         onChange={(e) => setInternalValue(e.target.value)}
         onBlur={(e) => updateAction?.(e.target.value)}
-        className="!text-xs border-none truncate disabled:opacity-100 placeholder:text-primary/30 bg-transparent focus-visible:ring-offset-0 focus-visible:ring-0 p-0"
+        className="!text-xs border-none truncate disabled:opacity-100 placeholder:text-primary/30 bg-transparent focus-visible:ring-offset-0 focus-visible:ring-0 p-0 disabled:cursor-default"
       />
+
       <div className="h-full min-w-7">
         {editable && (
           <Button

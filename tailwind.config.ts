@@ -16,6 +16,7 @@ const config: Config = {
         "clamp-lg": "var(--font-clamp-lg)",
         "clamp-md": "var(--font-clamp-md)",
         "clamp-sm": "var(--font-clamp-sm)",
+        "clamp-xs": "var(--font-clamp-xs)",
       },
       fontFamily: {
         mono: ["var(--font-pretendard)"],

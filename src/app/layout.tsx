@@ -5,7 +5,6 @@ import "overlayscrollbars/overlayscrollbars.css";
 
 import ModalProvider from "@/components/providers/ModalProvider";
 import { QueryProvider } from "@/components/providers/QueryProvider";
-import AuthProvider from "@/components/providers/AuthProvider";
 import { Toaster } from "@/components/ui/sonner";
 
 const pretendard = localFont({

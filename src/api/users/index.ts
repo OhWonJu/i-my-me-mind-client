@@ -5,6 +5,7 @@ import { CommonResponse } from "@/api/axios/axiosInstance.types";
 
 export interface GetImmmdKeyResponse {
   immmdKey: string | null;
+  flag?: boolean;
 }
 
 export interface CurrentUserResponse {

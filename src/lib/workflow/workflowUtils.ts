@@ -1,10 +1,11 @@
+import { AppNode } from "@/types/appNode";
 import { InternalNode, Node, Position } from "@xyflow/react";
 
 // returns the position (top,right,bottom or right) passed node compared to
-function getParams(
+const getParams = (
   nodeA: InternalNode<Node>,
   nodeB: InternalNode<Node>
-): [number, number, Position] {
+): [number, number, Position] => {
   const centerA = getNodeCenter(nodeA);
   const centerB = getNodeCenter(nodeB);
 
@@ -23,12 +24,12 @@ function getParams(
 
   const [x, y] = getHandleCoordsByPosition(nodeA, position);
   return [x, y, position];
-}
+};
 
-function getHandleCoordsByPosition(
+const getHandleCoordsByPosition = (
   node: InternalNode<Node>,
   handlePosition: Position
-) {
+) => {
   // all handles are from type source, that's why we use handleBounds.source here
   const handle = node.internals.handleBounds!.source!.find(
     (h) => h.position === handlePosition
@@ -59,20 +60,20 @@ function getHandleCoordsByPosition(
   const y = node.internals.positionAbsolute.y + handle!.y + offsetY;
 
   return [x, y];
-}
+};
 
-function getNodeCenter(node: InternalNode<Node>) {
+const getNodeCenter = (node: InternalNode<Node>) => {
   return {
     x: node.internals.positionAbsolute.x + node.measured.width! / 2,
     y: node.internals.positionAbsolute.y + node.measured.height! / 2,
   };
-}
+};
 
 // returns the parameters (sx, sy, tx, ty, sourcePos, targetPos) you need to create an edge
-export function getEdgeParams(
+export const getEdgeParams = (
   source: InternalNode<Node>,
   target: InternalNode<Node>
-) {
+) => {
   const [sx, sy, sourcePos] = getParams(source, target);
   const [tx, ty, targetPos] = getParams(target, source);
 
@@ -84,4 +85,4 @@ export function getEdgeParams(
     sourcePos,
     targetPos,
   };
-}
+};
