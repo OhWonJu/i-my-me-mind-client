@@ -9,7 +9,7 @@ import { getWorkflowDetail, getWorkflowList } from "@/api/workflows";
 import { DnDProvider } from "../_context/DnDContext";
 import FlowEditor from "./FlowEditor";
 import { FlowEditorToolbar } from "./flowEditorToolbar/FlowEditorToolbar";
-import UtilsBox from "./utilityComponents/UtilsBox";
+import WorkflowUtilityBox from "./utilityComponents/WorkflowUtilityBox";
 
 const WorkFlow = () => {
   const { workflowId } = useParams<{ workflowId: string }>();
@@ -27,7 +27,7 @@ const WorkFlow = () => {
           <FlowEditor workflow={data.data} />
         </div>
       </DnDProvider>
-      <UtilsBox workflow={data.data} />
+      <WorkflowUtilityBox workflow={data.data} />
     </ReactFlowProvider>
   );
 };
