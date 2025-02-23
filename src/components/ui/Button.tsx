@@ -1,11 +1,18 @@
 "use client";
 
-import { ButtonHTMLAttributes, MouseEvent, useCallback } from "react";
+import {
+  ButtonHTMLAttributes,
+  forwardRef,
+  MouseEvent,
+  useCallback,
+  useRef,
+} from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
 import { LoadingDots } from "@/components/ui/LoadingDots";
+import { RippleEffect, RippleRef } from "./RippleEffect";
 
 export interface ButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
@@ -19,10 +26,12 @@ export interface ButtonProps
   size?: "default" | "sm" | "lg" | "icon";
   loading?: boolean;
   disabled?: boolean;
-  onClick: (event: MouseEvent) => void;
+  rippleColor?: string;
+  useRipple?: boolean;
+  onClick?: (event: MouseEvent) => void;
 }
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   "relative overflow-hidden inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm border border-transparent font-medium ring-offset-0 transition-colors focus-visible:outline-none focus-visible:ring-0 disabled:pointer-events-none",
   {
     variants: {
@@ -47,50 +56,66 @@ const buttonVariants = cva(
   }
 );
 
-export const Button = (props: ButtonProps) => {
-  const {
-    className,
-    variant = "flat",
-    active,
-    width,
-    loading = false,
-    disabled = false,
-    style = {},
-    children,
-    size = "default",
-    type = "button",
-    onClick,
-    ...rest
-  } = props;
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    const rippleRef = useRef<RippleRef>(null);
 
-  const _variant = disabled ? "disabled" : variant;
-  const _width = width ? (width <= 1 ? `${width * 100}%` : width) : undefined;
+    const {
+      className,
+      variant = "flat",
+      active,
+      width,
+      loading = false,
+      disabled = false,
+      style = {},
+      children,
+      size = "default",
+      type = "button",
+      onClick,
+      rippleColor,
+      useRipple,
+      ...rest
+    } = props;
 
-  const handleClick = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      event.stopPropagation();
-      event.preventDefault();
+    const _variant = disabled ? "disabled" : variant;
+    const _width = width ? (width <= 1 ? `${width * 100}%` : width) : undefined;
 
-      onClick(event);
-    },
-    [onClick]
-  );
+    const handleClick = useCallback(
+      (event: MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
 
-  return (
-    <button
-      aria-pressed={active}
-      data-variant={_variant}
-      className={cn(buttonVariants({ variant: _variant, size, className }))}
-      disabled={disabled || loading}
-      style={{
-        width: _width,
-        ...style,
-      }}
-      type={type}
-      onClick={handleClick}
-      {...rest}
-    >
-      {loading ? <LoadingDots /> : <>{children}</>}
-    </button>
-  );
-};
+        onClick?.(event);
+        useRipple && rippleRef.current?.createRipple(event);
+      },
+      [onClick, useRipple]
+    );
+
+    return (
+      <button
+        ref={ref}
+        aria-pressed={active}
+        data-variant={_variant}
+        className={cn(buttonVariants({ variant: _variant, size, className }))}
+        disabled={disabled || loading}
+        style={{
+          width: _width,
+          ...style,
+        }}
+        type={type}
+        onClick={handleClick}
+        {...rest}
+      >
+        {useRipple && (
+          <RippleEffect
+            ref={rippleRef}
+            rippleColor={rippleColor ? rippleColor : "var(--puls)"}
+          />
+        )}
+        {loading ? <LoadingDots /> : <>{children}</>}
+      </button>
+    );
+  }
+);
+
+Button.displayName = "Button";
