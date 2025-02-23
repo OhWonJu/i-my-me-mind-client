@@ -9,7 +9,7 @@ import NodeCard from "./NodeCard";
 import NodeHandler from "./NodeHandler";
 import { NodeBlock, NodeBlocks } from "./NodeBlocks";
 
-import UtilityBox from "./_components/UtilityBox";
+import NodeUtilityBox from "./_components/NodeUtilityBox";
 
 const NodeComponent = (props: NodeProps) => {
   const nodeId = props.id;
@@ -28,7 +28,7 @@ const NodeComponent = (props: NodeProps) => {
           />
         ))}
       </NodeBlocks>
-      <UtilityBox
+      <NodeUtilityBox
         nodeId={props.id}
         nodeData={nodeData}
         selected={props.selected!}

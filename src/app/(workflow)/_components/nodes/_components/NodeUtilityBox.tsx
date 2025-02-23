@@ -15,7 +15,7 @@ import { useModal } from "@/stores/useModalStore";
 import { Button } from "@/components/ui";
 import { CreateFlowNode } from "@/lib/workflow/createFlowNode";
 
-const UtilityBox = ({
+const NodeUtilityBox = ({
   nodeId,
   nodeData,
   selected,
@@ -61,6 +61,7 @@ const UtilityBox = ({
       y: targetNodeY + 50,
     });
 
+    // TODO : 복사시 같은 블록이 아이디를 공유함 - 로직 개선
     addNodes([newNode]);
     updateNodeData(newNode.id, {
       ...nodeData,
@@ -138,4 +139,4 @@ const UtilityBox = ({
   );
 };
 
-export default UtilityBox;
+export default NodeUtilityBox;
