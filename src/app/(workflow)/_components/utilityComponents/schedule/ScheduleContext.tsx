@@ -14,7 +14,6 @@ export type ScheduleContextType = {
   isExtend: boolean;
   activeDate: Date;
   dateNodes: DateNode[];
-  itemCount: number;
 
   setIsExtend: () => void;
   setActiveDate: (date: Date) => void;
@@ -24,7 +23,6 @@ export const ScheduleContext = createContext<ScheduleContextType>({
   isExtend: false,
   activeDate: new Date(),
   dateNodes: [],
-  itemCount: 0,
 
   setIsExtend: () => {},
   setActiveDate: () => {},

@@ -9,8 +9,9 @@ export const useLocalStorage = (key: string): [string | null, Function] => {
     () => getServerSnapshot(key)
   );
 
-  function changeValue(value: string) {
-    localStorage.setItem(key, value);
+  function changeValue(value: string | null) {
+    if (!value) localStorage.removeItem(key);
+    else localStorage.setItem(key, value);
     emitChange();
   }
 

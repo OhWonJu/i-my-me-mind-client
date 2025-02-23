@@ -9,7 +9,7 @@ import { Button } from "@/components/ui";
 import { useScheduleContext } from "./ScheduleContext";
 
 const ScheduleButton = () => {
-  const { itemCount, setIsExtend } = useScheduleContext();
+  const { setIsExtend } = useScheduleContext();
 
   return (
     <Button

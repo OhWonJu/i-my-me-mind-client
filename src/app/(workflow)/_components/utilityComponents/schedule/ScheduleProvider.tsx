@@ -43,8 +43,6 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
     activeDate
   );
 
-  let itemCount = 0;
-
   const dateNodes = filterdDateNodesWithMonth.map((node): DateNode => {
     let checklistItems: ChecklistItemType[] = [];
 
@@ -56,8 +54,6 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
             node.data.blockValues[block.name]
           ) as ChecklistItemType[])
       );
-
-    itemCount += checklistItems.length;
 
     return {
       nodeId: node.id,
@@ -76,7 +72,6 @@ export const ScheduleProvider = ({ children }: ScheduleProviderProps) => {
         activeDate,
         isExtend,
         dateNodes,
-        itemCount,
         setIsExtend: handleExtend,
         setActiveDate: (date: Date) => setActiveDate(date),
       }}
