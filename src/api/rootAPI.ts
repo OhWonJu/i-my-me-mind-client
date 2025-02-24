@@ -22,7 +22,7 @@ export const _PUT = async <T>(endPoint: string, params?: any) => {
   return response;
 };
 
-export const _DELETE = async <T>(endPoint: string, params: any) => {
+export const _DELETE = async <T>(endPoint: string, params?: any) => {
   try {
     const response = await rootAPI.delete<T>(endPoint, {
       data: params,

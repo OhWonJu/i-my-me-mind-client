@@ -7,14 +7,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import { Settings } from "lucide-react";
 
+import { TaskType } from "@/types/task";
 import { cn } from "@/lib/utils";
 
-import { ChevronLeft, CreditCard, DotMenu, Menu } from "@/components/icons";
-import ToolbarMenuButton from "../ToolbarMenuButton";
-import { TaskType } from "@/types/task";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import { ChevronLeft, CreditCard, Menu } from "@/components/icons";
+
+import ToolbarMenuButton from "./ToolbarMenuButton";
 import WorkflowList from "./WorkflowList";
+
+const MIN_WIDTH = 80;
+const MAX_WIDTH = 300;
 
 interface FlowEditorToolbarProps {
   disabled?: boolean;
@@ -22,9 +27,6 @@ interface FlowEditorToolbarProps {
   className?: string;
   align?: "left" | "right";
 }
-
-const MIN_WIDTH = 80;
-const MAX_WIDTH = 300;
 
 export const FlowEditorToolbar = ({
   className,
@@ -150,6 +152,20 @@ export const FlowEditorToolbar = ({
                 <WorkflowList />
               </AccordionItem>
             </Accordion>
+
+            <button onClick={extend} className="flex w-full py-4 items-center">
+              <div className="flex justify-center items-center min-w-[3rem]">
+                <Settings className="w-6 h-6 stroke-[1.5]" />
+              </div>
+              <div
+                className={cn(
+                  "items-center truncate",
+                  isResetting ? "hidden" : "flex"
+                )}
+              >
+                <span className="font-medium text-sm">설정</span>
+              </div>
+            </button>
           </div>
         </OverlayScrollbarsComponent>
       </div>

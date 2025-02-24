@@ -55,10 +55,10 @@ const ToDoDateBadge = ({ nodeId }: { nodeId: string }) => {
 
   const formattedDate = useMemo(() => {
     const startDateFormat = todoDate?.startDate
-      ? format(todoDate?.startDate, "yyyy/M/d", { locale: ko })
+      ? format(todoDate?.startDate, "yyyy.M.d", { locale: ko })
       : null;
     const endDateFormat = todoDate?.endDate
-      ? format(todoDate?.endDate, "yyyy/M/d", { locale: ko })
+      ? format(todoDate?.endDate, "yyyy.M.d", { locale: ko })
       : null;
 
     let tempFormatArray: any[] = [null, null, null];

@@ -1,16 +1,23 @@
 "use client";
 
-import { createWorkflow } from "@/api/workflows";
-import { Button } from "@/components/ui";
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { createWorkflow, workflowsQueryKeys } from "@/api/workflows";
+import { Button } from "@/components/ui";
 
 const Dashboard = () => {
   const router = useRouter();
 
+  const queryClient = useQueryClient();
+
   const { mutate: create } = useMutation({
     mutationFn: async () => await createWorkflow(),
     onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: workflowsQueryKeys.getWorkflowList,
+      });
+
       router.push(`/workflow/${data.data.id}`);
     },
   });

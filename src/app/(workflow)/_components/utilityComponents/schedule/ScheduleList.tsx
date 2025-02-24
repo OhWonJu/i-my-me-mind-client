@@ -73,10 +73,10 @@ const ScheduleListItem = ({
 }) => {
   const formattedDate = useMemo(() => {
     const startDateFormat = node.startDate
-      ? format(node?.startDate, "yyyy/M/d", { locale: ko })
+      ? format(node?.startDate, "yyyy.M.d", { locale: ko })
       : null;
     const endDateFormat = node?.endDate
-      ? format(node?.endDate, "yyyy/M/d", { locale: ko })
+      ? format(node?.endDate, "yyyy.M.d", { locale: ko })
       : null;
 
     let tempFormatArray: any[] = [null, null, null];

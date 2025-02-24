@@ -2,7 +2,7 @@
 
 import { queryOptions } from "@tanstack/react-query";
 
-import { _GET, _PATCH, _POST, _PUT } from "@/api/rootAPI";
+import { _DELETE, _GET, _PATCH, _POST, _PUT } from "@/api/rootAPI";
 import { CommonResponse } from "@/api/axios/axiosInstance.types";
 
 import { Workflow, WorkflowList, WorkflowWithRole } from "@/types/schema";
@@ -66,6 +66,12 @@ export async function updateWorkflow(
   const res = await _PATCH<UpdateWorkflowResponse>(`/workflows/${workflowId}`, {
     updateData: params,
   });
+
+  return res;
+}
+
+export async function deleteWorkflow(workflowId: string) {
+  const res = await _DELETE<CommonResponse>(`/workflows/${workflowId}`);
 
   return res;
 }
