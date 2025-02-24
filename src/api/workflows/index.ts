@@ -5,14 +5,14 @@ import { queryOptions } from "@tanstack/react-query";
 import { _GET, _PATCH, _POST, _PUT } from "@/api/rootAPI";
 import { CommonResponse } from "@/api/axios/axiosInstance.types";
 
-import { Workflow, WorkflowList } from "@/types/schema";
+import { Workflow, WorkflowList, WorkflowWithRole } from "@/types/schema";
 
 export interface GetWorkflowListResponse extends CommonResponse {
   data: WorkflowList[] | undefined;
 }
 
 interface GetWorkflowDetailResponse extends CommonResponse {
-  data: Workflow;
+  data: WorkflowWithRole;
 }
 
 interface CreateWorkflowResponse extends CommonResponse {

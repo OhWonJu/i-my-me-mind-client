@@ -8,6 +8,11 @@ export interface Workflow {
   updatedAt: Date;
 }
 
+export interface WorkflowWithRole extends Workflow {
+  role?: CollaboratorRole;
+}
+export type CollaboratorRole = "ADMIN" | "MODERATOR" | "GUEST";
+
 export interface WorkflowList {
   name: string;
   id: string;

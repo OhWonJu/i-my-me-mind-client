@@ -7,6 +7,8 @@ import { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 import { AppNode } from "@/types/appNode";
 import { TaskBlock, TaskBlockType } from "@/types/task";
 
+import { useWorkflowInfoContext } from "../../_context/WorkflowInfoContext";
+
 import { ChecklistBlock, MarkdownBlock, MemoBlock } from "../blocks";
 import BlockCard from "../blocks/_components/BlockCard";
 import { BlockHandler } from "../blocks/_components/BlockHandler";
@@ -20,10 +22,12 @@ const NodeBlockField = ({
   nodeId: string;
   dragHandleProps?: DraggableProvidedDragHandleProps | null;
 }) => {
+  const { editable: workflowEditable } = useWorkflowInfoContext();
   const { updateNodeData, getNode } = useReactFlow();
+
   const node = getNode(nodeId) as AppNode;
   const value = node?.data.blockValues?.[block.name];
-  const editable = node?.data.editable;
+  const editable = node?.data.editable && workflowEditable;
   const selected = node?.selected ?? false;
 
   const updateNodeBlockValue = useCallback(

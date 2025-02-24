@@ -7,6 +7,8 @@ import { toast } from "sonner";
 
 import { AppNode } from "@/types/appNode";
 
+import { useWorkflowInfoContext } from "../../_context/WorkflowInfoContext";
+
 import { updateWorkflow, workflowsQueryKeys } from "@/api/workflows";
 import { Button } from "@/components/ui";
 
@@ -17,9 +19,12 @@ const SaveButton = ({
   workflowId: string;
   workflowName: string;
 }) => {
+  const { editable } = useWorkflowInfoContext();
   const { toObject, getNode } = useReactFlow();
 
   const updateHandler = async () => {
+    if (!editable) return;
+
     if (document.activeElement instanceof HTMLElement) {
       await document.activeElement.blur();
     }
@@ -51,7 +56,7 @@ const SaveButton = ({
 
   useEffect(() => {
     const down = async (e: KeyboardEvent) => {
-      // if (!editable) return;
+      if (!editable) return;
 
       if (e.key === "s" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
@@ -62,7 +67,7 @@ const SaveButton = ({
     document.addEventListener("keydown", down);
 
     return () => document.removeEventListener("keydown", down);
-  }, [update]);
+  }, [editable, update]);
 
   return (
     <Button

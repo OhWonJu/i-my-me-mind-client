@@ -5,13 +5,17 @@ import { NodeProps } from "@xyflow/react";
 
 import { AppNodeData } from "@/types/appNode";
 
+import { useWorkflowInfoContext } from "../../_context/WorkflowInfoContext";
+
+import NodeUtilityBox from "./_components/NodeUtilityBox";
+
 import NodeCard from "./NodeCard";
 import NodeHandler from "./NodeHandler";
 import { NodeBlock, NodeBlocks } from "./NodeBlocks";
 
-import NodeUtilityBox from "./_components/NodeUtilityBox";
-
 const NodeComponent = (props: NodeProps) => {
+  const { editable } = useWorkflowInfoContext();
+
   const nodeId = props.id;
   const nodeData = props.data as AppNodeData;
 
@@ -28,11 +32,13 @@ const NodeComponent = (props: NodeProps) => {
           />
         ))}
       </NodeBlocks>
-      <NodeUtilityBox
-        nodeId={props.id}
-        nodeData={nodeData}
-        selected={props.selected!}
-      />
+      {editable && (
+        <NodeUtilityBox
+          nodeId={props.id}
+          nodeData={nodeData}
+          selected={props.selected!}
+        />
+      )}
     </NodeCard>
   );
 };

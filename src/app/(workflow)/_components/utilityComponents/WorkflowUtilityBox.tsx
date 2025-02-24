@@ -6,10 +6,14 @@ import { Workflow } from "@/types/schema";
 
 import { cn } from "@/lib/utils";
 
+import { useWorkflowInfoContext } from "../../_context/WorkflowInfoContext";
+
 import SaveButton from "./SaveButton";
 import Schedule from "./Schedule";
 
 const WorkflowUtilityBox = ({ workflow }: { workflow: Workflow }) => {
+  const { editable } = useWorkflowInfoContext();
+
   return (
     <div
       className={cn(
@@ -17,7 +21,9 @@ const WorkflowUtilityBox = ({ workflow }: { workflow: Workflow }) => {
       )}
     >
       <Schedule />
-      <SaveButton workflowId={workflow.id} workflowName={workflow.name} />
+      {editable && (
+        <SaveButton workflowId={workflow.id} workflowName={workflow.name} />
+      )}
     </div>
   );
 };

@@ -8,6 +8,8 @@ import { AppNode } from "@/types/appNode";
 
 import { TaskRegistry } from "@/lib/workflow/node/registry";
 
+import { useWorkflowInfoContext } from "../../_context/WorkflowInfoContext";
+
 import NodeTitleInput from "./_components/NodeTitleInput";
 import TaskBadges from "./_components/badges/TaskBadges";
 
@@ -20,8 +22,10 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
   const task = TaskRegistry[taskType];
 
   const { updateNodeData, getNode } = useReactFlow();
+  const { editable: workflowEditable } = useWorkflowInfoContext();
+
   const node = getNode(nodeId) as AppNode;
-  const { nodeTitle, editable } = node?.data;
+  const { nodeTitle } = node?.data;
 
   const updateNodeTitle = useCallback(
     (newValue: string) => {
@@ -44,7 +48,7 @@ const NodeHandler = ({ nodeId, taskType }: NodeHandlerProps) => {
           <NodeTitleInput
             initialTitle={nodeTitle}
             // not editable || preview
-            preview={!editable}
+            preview={!workflowEditable}
             onChange={updateNodeTitle}
           />
         </div>

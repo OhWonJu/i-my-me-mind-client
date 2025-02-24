@@ -26,6 +26,8 @@ import {
   CreateRootFlowNode,
 } from "@/lib/workflow/createFlowNode";
 
+import { useWorkflowInfoContext } from "../_context/WorkflowInfoContext";
+
 import NodeComponent from "./nodes/NodeComponent";
 import DeletableEdge from "./edges/DeletableEdge";
 import RootNodeComponent from "./nodes/RootNodeComponent";
@@ -47,6 +49,7 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState<AppNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
+  const { editable } = useWorkflowInfoContext();
   const { setViewport, screenToFlowPosition } = useReactFlow();
 
   useEffect(() => {
@@ -81,6 +84,8 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
 
   const onDrop = useCallback(
     (event: React.DragEvent) => {
+      if (!editable) return;
+
       event.preventDefault();
 
       const taskType = event.dataTransfer.getData("application/reactflow");
@@ -96,16 +101,18 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
 
       setNodes((prevNodes) => prevNodes.concat(newNode));
     },
-    [screenToFlowPosition, setNodes]
+    [editable, screenToFlowPosition, setNodes]
   );
 
   const onConnect = useCallback(
     (connection: Connection) => {
+      if (!editable) return;
+
       setEdges((prevEdges) =>
         addEdge({ ...connection, animated: false }, prevEdges)
       );
     },
-    [setEdges]
+    [editable, setEdges]
   );
 
   const isValidConnection = useCallback(
@@ -150,8 +157,14 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         connectionMode={ConnectionMode.Loose}
         isValidConnection={isValidConnection}
         minZoom={0.2}
+        nodesDraggable={editable}
+        elementsSelectable={editable}
       >
-        <Controls position="bottom-right" fitViewOptions={fitViewOptions} />
+        <Controls
+          position="bottom-right"
+          fitViewOptions={fitViewOptions}
+          showInteractive={editable}
+        />
         <Background variant={BackgroundVariant.Dots} gap={20} size={1} />
       </ReactFlow>
     </div>
