@@ -3,6 +3,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
+import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
 import { cn } from "@imymemind/core/lib/utils";
@@ -65,6 +66,7 @@ function Calendar({
         ),
       }}
       locale={ko}
+      formatters={{ formatCaption: date => format(date, "yyyy년 M월") }}
       {...props}
     />
   );
