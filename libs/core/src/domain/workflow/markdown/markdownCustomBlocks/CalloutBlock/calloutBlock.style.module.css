@@ -1,0 +1,87 @@
+.callout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  min-height: 48px;
+  padding: 1rem 0.5rem;
+  border-width: 1px;
+  border-radius: 6px;
+  border-color: transparent;
+}
+
+.callout[data-callout-type="default"] {
+  background-color: transparent;
+  border-color: hsl(var(--primary-foreground));
+}
+
+.callout[data-callout-type="warning"] {
+  background-color: #fff6e6;
+}
+
+.callout[data-callout-type="error"] {
+  background-color: #ffe6e6;
+}
+
+.callout[data-callout-type="info"] {
+  background-color: #e6ebff;
+}
+
+.callout[data-callout-type="success"] {
+  background-color: #e6ffe6;
+}
+
+[data-color-scheme="dark"] .callout[data-callout-type="warning"] {
+  background-color: #805d20;
+}
+
+[data-color-scheme="dark"] .callout[data-callout-type="error"] {
+  background-color: #802020;
+}
+
+[data-color-scheme="dark"] .callout[data-callout-type="info"] {
+  background-color: #203380;
+}
+
+[data-color-scheme="dark"] .callout[data-callout-type="success"] {
+  background-color: #208020;
+}
+
+.callout_icon_wrapper {
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 12px;
+  margin-right: 12px;
+  height: 18px;
+  width: 18px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.callout_icon[data-callout-icon-type="default"] {
+  color: #f9d02e;
+}
+
+.callout_icon[data-callout-icon-type="warning"] {
+  color: #e69819;
+}
+
+.callout_icon[data-callout-icon-type="error"] {
+  color: #d80d0d;
+}
+
+.callout_icon[data-callout-icon-type="info"] {
+  color: #507aff;
+}
+
+.callout_icon[data-callout-icon-type="success"] {
+  color: #0bc10b;
+}
+
+.inline_content {
+  flex-grow: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
