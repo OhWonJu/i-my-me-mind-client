@@ -1,0 +1,26 @@
+{
+  // "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+  "extends": "../../tsconfig.base.json",
+  "include": [
+    "**/*.js",
+    "**/*.jsx",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/renderer/src/env.d.ts",
+    "src/renderer/src/**/*",
+    "src/renderer/src/**/*.tsx",
+    "src/preload/*.d.ts",
+    "../../libs/core/src"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "jsx": "preserve",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@imymemind/core/*": ["libs/core/src/*"],
+      "@renderer/*": ["apps/desktop/src/renderer/src/*"]
+    }
+  }
+}

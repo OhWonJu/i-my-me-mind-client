@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --background: 60 3.3% 94.9%;
+    --foreground: 0 0% 3.9%;
+    --card: 60 13.3% 98.4%;
+    --card-foreground: 0 0% 93.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 86.9%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    --font-clamp-2xl: clamp(3rem, 6vw, 4.5rem);
+    --font-clamp-xl: clamp(2.5rem, 5vw, 4rem);
+    --font-clamp-lg: clamp(2rem, 4vw, 3.5rem);
+    --font-clamp-md: clamp(1.5rem, 3vw, 2.5rem);
+    --font-clamp-sm: clamp(1rem, 2vw, 1.5rem);
+    --font-clamp-xs: clamp(0.5rem, 1vw, 1rem);
+
+    --puls: #21212120;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+
+    --puls: #fefefd50;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.bn-container[data-theming-css][data-color-scheme] {
+  --bn-colors-editor-text: hsl(var(--primary));
+  --bn-colors-editor-background: 0 0% 0%;
+  --bn-colors-highlights-gray-background: hsl(var(--primary-foreground));
+}
+
+.bn-block-content {
+  span[data-background-color] {
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  p {
+    font-weight: 500;
+  }
+}
+
+.dynamic-scroll::-webkit-scrollbar {
+  width: 7px; /* 스크롤바 너비 */
+  height: 7px; /* 수평 스크롤바 높이 */
+  scrollbar-gutter: auto;
+}
+
+.dynamic-scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+
+  border-radius: 4px; /* 둥근 모서리 */
+}
+
+.dynamic-scroll:hover::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary-foreground)); /* 호버 시 배경색 */
+}
+
+.dynamic-scroll::-webkit-scrollbar-track {
+  background-color: transparent; /* 트랙 배경을 투명하게 */
+}
+
+.bn-inline-content:has(> .ProseMirror-trailingBreak):before {
+  color: hsl(var(--primary) / 0.3) !important;
+}
+
+.workflow-title-textarea {
+  field-sizing: content;
+}
