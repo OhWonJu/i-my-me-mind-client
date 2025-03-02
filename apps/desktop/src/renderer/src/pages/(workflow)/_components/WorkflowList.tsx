@@ -82,18 +82,18 @@ const WorkflowListItem = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="group/list select-none flex justify-between items-center hover:bg-card-foreground/70 py-1 rounded-md cursor-pointer">
-      <a href={`/workflow/${item.id}`}>
+    <div className="group/list select-none flex max-w-full justify-between items-center hover:bg-card-foreground/70 py-1 rounded-md cursor-pointer overflow-hidden">
+      <a className="flex-1 min-w-0 flex" href={`/workflow/${item.id}`}>
         <p
           title={item.name}
-          className="flex-1 truncate pl-3 py-1 cursor-pointer"
+          className="truncate w-full pl-3 py-1 cursor-pointer"
         >
           {item.name}
         </p>
       </a>
 
       <Popover onOpenChange={setIsOpen}>
-        <PopoverTrigger className="gird place-items-center w-6 h-6 text-primary/50 hover:text-primary">
+        <PopoverTrigger className="grid place-items-center w-6 h-6 shrink-0 text-primary/50 hover:text-primary">
           <DotMenu
             className={cn(
               "group-hover/list:block  w-3 h-3 rotate-90",
