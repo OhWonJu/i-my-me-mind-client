@@ -1,5 +1,3 @@
-"use clinet";
-
 import React, { useEffect } from "react";
 
 import { useWorkflowInfoContext } from "../../_context/WorkflowInfoContext";

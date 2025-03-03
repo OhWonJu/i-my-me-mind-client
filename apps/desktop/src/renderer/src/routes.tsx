@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 
 import RootLayout from "./RootLayout";
 import DashboardLayout from "./pages/(dashboard)/layout";
@@ -8,7 +8,7 @@ import DashboardPage from "./pages/(dashboard)/dashboard/page";
 import WorkflowLayout from "./pages/(workflow)/layout";
 import WorkflowPage from "./pages/(workflow)/[workflowId]/page";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: <RootLayout />,
     children: [

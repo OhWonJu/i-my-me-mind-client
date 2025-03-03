@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Trash } from "lucide-react";
 import { toast } from "sonner";
@@ -97,14 +97,14 @@ const WorkflowListItem = ({
 
   return (
     <div className="group/list select-none flex max-w-full justify-between items-center hover:bg-card-foreground/70 py-1 rounded-md cursor-pointer overflow-hidden">
-      <a className="flex-1 min-w-0 flex" href={targetPath}>
+      <Link className="flex-1 min-w-0 flex" to={targetPath}>
         <p
           title={item.name}
           className="truncate w-full pl-3 py-1 cursor-pointer"
         >
           {item.name}
         </p>
-      </a>
+      </Link>
 
       {!isDashboard && (
         <Popover onOpenChange={setIsOpen}>
