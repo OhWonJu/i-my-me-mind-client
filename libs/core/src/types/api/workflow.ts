@@ -17,6 +17,7 @@ export interface UpdateWorkflowRequestBody {
   name?: string;
   data?: string;
   publish?: string;
+  thumbnailUrl?: string;
   collaboratorsId?: string[];
 }
 

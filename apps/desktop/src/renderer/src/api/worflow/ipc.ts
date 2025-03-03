@@ -61,7 +61,6 @@ export async function clearAssets(
   requestedAssets: string[]
 ) {
   const res = await window.api.clearAssets(workflowId, requestedAssets);
-  console.log(requestedAssets);
 
   if (!res.ok) throw new Error(res.errorCode);
   else return res;

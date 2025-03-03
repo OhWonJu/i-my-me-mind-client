@@ -39,6 +39,10 @@ declare global {
         workflowId: string,
         requestedAssets: string[]
       ) => Promise<CommonResponse>;
+      uploadThumbnail: (
+        workflowId: string,
+        fileData: ArrayBuffer
+      ) => Promise<CommonResponse>;
     };
   }
 }

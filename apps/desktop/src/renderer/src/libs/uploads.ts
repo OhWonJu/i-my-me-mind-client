@@ -19,3 +19,22 @@ export const uploadSafeFile = async (
     return undefined;
   }
 };
+
+export const uploadThumbnail = async (
+  workflowId: string,
+  file: File
+): Promise<string | undefined> => {
+  const arrayBuffer = await file.arrayBuffer(); // ArrayBuffer 변환
+
+  const res = (await window.api.uploadThumbnail(
+    workflowId,
+    arrayBuffer
+  )) as UploadResponse;
+
+  if (res.ok) {
+    return res.url;
+  } else {
+    console.error("파일 업로드 오류:", res.error);
+    return undefined;
+  }
+};

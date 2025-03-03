@@ -9,8 +9,13 @@ import {
   getWorkflowDetail,
   getWorkflowList,
   updateWorkflow,
-} from "./utils";
-import { clearAssests, getSafeFile, uploadSafeFile } from "./files";
+} from "./workflows";
+import {
+  clearAssests,
+  getSafeFile,
+  uploadSafeFile,
+  uploadThumbnail,
+} from "./files";
 
 // const userDataPath = app.getPath("appData");
 
@@ -21,6 +26,7 @@ function createWindow(): void {
     height: 800,
     minWidth: 560,
     minHeight: 480,
+    title: "I MY ME MIND",
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === "linux" ? { icon } : {}),
@@ -64,8 +70,11 @@ app.whenReady().then(() => {
   });
 
   protocol.handle("safe-file", getSafeFile);
+
   ipcMain.handle("upload-safeFile", uploadSafeFile);
   ipcMain.handle("clear-assets", clearAssests);
+
+  ipcMain.handle("upload-thumbnail", uploadThumbnail);
 
   // Deprecated in Electron 25
   // protocol.registerFileProtocol("safe-file", (request, callback) => {

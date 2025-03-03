@@ -17,5 +17,6 @@ export interface WorkflowList {
   name: string;
   id: string;
   publish: boolean;
+  thumbnailUrl?: string;
   updatedAt: Date;
 }

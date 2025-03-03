@@ -25,6 +25,8 @@ const api = {
   ) => ipcRenderer.invoke("upload-safeFile", workflowId, fileName, fileData),
   clearAssets: (workflowId: string, requestedAssets: string[]) =>
     ipcRenderer.invoke("clear-assets", workflowId, requestedAssets),
+  uploadThumbnail: (workflowId: string, fileData: ArrayBuffer) =>
+    ipcRenderer.invoke("upload-thumbnail", workflowId, fileData),
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

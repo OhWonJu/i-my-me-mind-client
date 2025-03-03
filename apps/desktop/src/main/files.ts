@@ -3,12 +3,17 @@ import fs from "fs";
 import { join } from "path";
 
 import { CommonResponse } from "../../../../libs/core/src/types/api/common";
+import { updateWorkflow } from "./workflows";
 
-const getAssetsFolderPath = (workflowId: string) =>
-  join(app.getPath("documents"), `imymemind/workflow/${workflowId}/assets`);
+const getWorkflowFolderPath = (workflowId?: string) => {
+  if (workflowId)
+    return join(app.getPath("documents"), `imymemind/workflow/${workflowId}`);
+  return join(app.getPath("documents"), "imymemind/workflow");
+};
 
-const getRealPath = (safeFileUrl: string) => {
-  return decodeURIComponent(safeFileUrl.replace("safe-file://", ""));
+const getAssetsFolderPath = (workflowId: string) => {
+  const workflowFolderPath = getWorkflowFolderPath(workflowId);
+  return `${workflowFolderPath}/assets`;
 };
 
 export const uploadSafeFile = async (
@@ -35,12 +40,43 @@ export const uploadSafeFile = async (
   }
 };
 
-export const getSafeFile = async request => {
-  // const documentsPath = app.getPath("documents");
-  // const url = request.url.replace("safe-file://", "");
-  // const filePath = resolve(documentsPath, decodeURIComponent(url));
+export const uploadThumbnail = async (
+  event,
+  workflowId: string,
+  fileData: ArrayBuffer
+): Promise<unknown> => {
+  try {
+    const basePath = getWorkflowFolderPath(workflowId);
 
+    if (!fs.existsSync(basePath)) {
+      fs.mkdirSync(basePath, { recursive: true });
+    }
+
+    const filePath = join(basePath, "thumbnail.png");
+
+    fs.writeFileSync(filePath, new Uint8Array(fileData));
+
+    const url = `safe-file://${filePath}`;
+
+    await updateWorkflow(event, workflowId, { thumbnailUrl: url });
+
+    return { ok: true, url };
+  } catch (error) {
+    console.error("파일 업로드 실패:", error);
+    return { ok: false, error: String(error) };
+  }
+};
+
+const getRealPath = (safeFileUrl: string) => {
+  return decodeURIComponent(safeFileUrl.replace("safe-file://", ""));
+};
+
+export const getSafeFile = async request => {
   const filePath = getRealPath(request.url);
+
+  if (!filePath.startsWith(getWorkflowFolderPath())) {
+    throw new Error("Unauthorized file access");
+  }
 
   if (fs.existsSync(filePath)) {
     return net.fetch(`file://${filePath}`);

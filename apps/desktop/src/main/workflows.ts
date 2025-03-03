@@ -18,7 +18,7 @@ import {
   DeleteWorkflowResponse,
 } from "../../../../libs/core/src/types/api/workflow";
 
-export const generateUniqueWorkspacePath = (
+export const generateUniqueWorkflowPath = (
   basePath: string
 ): { workspaceId: string; workspacePath: string } => {
   let workspaceId = uuidv4();
@@ -44,8 +44,7 @@ export const createWorkflow = async (
   try {
     const basePath = join(app.getPath("documents"), "imymemind", "workflow");
 
-    const { workspaceId, workspacePath } =
-      generateUniqueWorkspacePath(basePath);
+    const { workspaceId, workspacePath } = generateUniqueWorkflowPath(basePath);
 
     fs.mkdirSync(workspacePath, { recursive: true });
     fs.mkdirSync(join(workspacePath, "assets"), { recursive: true });
@@ -110,6 +109,7 @@ export const getWorkflowList = async (): Promise<GetWorkflowListResponse> => {
           name: metadata.name,
           id: metadata.id,
           publish: metadata.publish,
+          thumbnailUrl: metadata.thumbnailUrl,
           updatedAt: new Date(metadata.updatedAt),
         });
       } catch (error) {
@@ -207,6 +207,8 @@ export const updateWorkflow = async (
     if (updateData.publish !== undefined) metadata.publish = updateData.publish;
     if (updateData.collaboratorsId !== undefined)
       metadata.collaboratorsId = updateData.collaboratorsId;
+    if (updateData.thumbnailUrl !== undefined)
+      metadata.thumbnailUrl = updateData.thumbnailUrl;
 
     metadata.updatedAt = new Date().toISOString(); // 수정 시간 갱신
 
