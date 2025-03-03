@@ -57,6 +57,16 @@ const WorkflowList = () => {
 
   return (
     <>
+      <WorkflowListItem
+        item={{
+          id: "dashboard",
+          name: "대시보드로 돌아가기",
+          publish: false,
+          updatedAt: null,
+        }}
+        isDashboard={true}
+        deleteAction={() => null}
+      />
       {workflowlist.map(item => (
         <WorkflowListItem
           key={item.id}
@@ -74,16 +84,20 @@ const WorkflowList = () => {
 
 const WorkflowListItem = ({
   item,
+  isDashboard = false,
   deleteAction,
 }: {
   item: WorkflowListType;
+  isDashboard?: boolean;
   deleteAction: (worflowId: string) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const targetPath = isDashboard ? "/dashboard" : `/workflow/${item.id}`;
+
   return (
     <div className="group/list select-none flex max-w-full justify-between items-center hover:bg-card-foreground/70 py-1 rounded-md cursor-pointer overflow-hidden">
-      <a className="flex-1 min-w-0 flex" href={`/workflow/${item.id}`}>
+      <a className="flex-1 min-w-0 flex" href={targetPath}>
         <p
           title={item.name}
           className="truncate w-full pl-3 py-1 cursor-pointer"
@@ -92,27 +106,29 @@ const WorkflowListItem = ({
         </p>
       </a>
 
-      <Popover onOpenChange={setIsOpen}>
-        <PopoverTrigger className="grid place-items-center w-6 h-6 shrink-0 text-primary/50 hover:text-primary">
-          <DotMenu
-            className={cn(
-              "group-hover/list:block  w-3 h-3 rotate-90",
-              isOpen && "block",
-              !isOpen && "hidden"
-            )}
-          />
-        </PopoverTrigger>
-        <PopoverContent align="start" className="group w-fit p-0 z-[9999]">
-          <Button
-            variant="plain"
-            onClick={() => deleteAction(item.id)}
-            className="text-red-600 hover:bg-card-foreground"
-          >
-            <Trash size={16} className="mr-2" />
-            <span className="text-xs">마인드플로우 삭제하기</span>
-          </Button>
-        </PopoverContent>
-      </Popover>
+      {!isDashboard && (
+        <Popover onOpenChange={setIsOpen}>
+          <PopoverTrigger className="grid place-items-center w-6 h-6 shrink-0 text-primary/50 hover:text-primary">
+            <DotMenu
+              className={cn(
+                "group-hover/list:block  w-3 h-3 rotate-90",
+                isOpen && "block",
+                !isOpen && "hidden"
+              )}
+            />
+          </PopoverTrigger>
+          <PopoverContent align="start" className="group w-fit p-0 z-[9999]">
+            <Button
+              variant="plain"
+              onClick={() => deleteAction(item.id)}
+              className="text-red-600 hover:bg-card-foreground"
+            >
+              <Trash size={16} className="mr-2" />
+              <span className="text-xs">마인드플로우 삭제하기</span>
+            </Button>
+          </PopoverContent>
+        </Popover>
+      )}
     </div>
   );
 };
