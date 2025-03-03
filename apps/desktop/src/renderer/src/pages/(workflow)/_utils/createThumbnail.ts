@@ -2,7 +2,7 @@ import { getViewportForBounds } from "@xyflow/react";
 import { toPng } from "html-to-image";
 
 const IMAGE_WIDTH = 500;
-const IMAGE_HEIGHT = (IMAGE_WIDTH / 16) * 9; // 281.25
+const IMAGE_HEIGHT = (IMAGE_WIDTH / 16) * 9;
 
 export const createThumbnail = async (
   getNodes: any,
@@ -36,6 +36,7 @@ export const createThumbnail = async (
         height: `${IMAGE_HEIGHT}px`,
         transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.zoom})`,
       },
+      quality: 0.1,
       filter: (node: HTMLElement) => {
         if (node.tagName === "IMG") {
           return false;

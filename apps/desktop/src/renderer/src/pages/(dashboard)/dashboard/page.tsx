@@ -45,7 +45,7 @@ const DashboardPage = () => {
           새 마인드플로우 만들기
         </Button>
       </div>
-      <section className="mx-auto max-w-full md:max-w-3xl lg:max-w-5xl grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-8 box-border px-8 pb-16">
+      <section className="mx-auto max-w-full md:max-w-4xl lg:max-w-7xl grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-8 box-border px-16 pb-16">
         {workflowList.map(workflow => (
           <WorkflowCard key={workflow.id} workflow={workflow} />
         ))}

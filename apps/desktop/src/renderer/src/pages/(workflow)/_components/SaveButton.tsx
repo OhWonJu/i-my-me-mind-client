@@ -9,7 +9,7 @@ import { workflowsQueryKeys } from "@imymemind/core/types/api/workflow";
 import { updatedWorkflow } from "@renderer/api/worflow/ipc";
 
 import { uploadThumbnail } from "@renderer/libs/uploads";
-import { createThumbnail } from "../utils/createThumbnail";
+import { createThumbnail } from "../_utils/createThumbnail";
 
 import { useWorkflowInfoContext } from "@imymemind/core/domain/workflow/_context/WorkflowInfoContext";
 
