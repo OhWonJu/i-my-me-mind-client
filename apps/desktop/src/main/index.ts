@@ -24,8 +24,8 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth: 560,
-    minHeight: 480,
+    minWidth: 830,
+    minHeight: 680,
     title: "I MY ME MIND",
     show: false,
     autoHideMenuBar: true,

@@ -38,9 +38,9 @@ const ScheduleList = () => {
   if (!isExtend) return null;
 
   return (
-    <aside className="fixed right-8 top-0 pt-24 pb-8 w-[400px] h-screen -z-10">
-      <div className="flex flex-col h-full bg-card p-6 rounded-2xl shadow-lg gap-y-6">
-        <div className="w-full select-none">
+    <aside className="fixed right-8 top-0 pt-24 pb-8 h-md:w-[400px] h-screen -z-10">
+      <div className="flex h-md:flex-col h-full w-full bg-card p-6 rounded-2xl shadow-lg gap-x-6 h-md:gap-y-6">
+        <div className="w-[300px] h-md:w-full select-none">
           <Calendar
             mode="single"
             month={activeDate}
@@ -49,8 +49,7 @@ const ScheduleList = () => {
             className="p-0"
           />
         </div>
-        <hr />
-        <div className="flex flex-col flex-1 overflow-y-scroll scrollbar-hide space-y-4">
+        <div className="flex flex-col flex-1 w-[300px] h-md:w-full overflow-y-scroll scrollbar-hide space-y-4">
           {dateNodes.map((node, index) => (
             <ScheduleListItem
               key={node.nodeId}

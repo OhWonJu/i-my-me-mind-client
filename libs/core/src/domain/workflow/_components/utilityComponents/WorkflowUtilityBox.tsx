@@ -13,7 +13,7 @@ const WorkflowUtilityBox = ({
   return (
     <div
       className={cn(
-        "group/utilsbox fixed flex items-center gap-x-3 top-0 right-0 mr-4 px-4 py-3 mt-6 z-[9999]"
+        "group/utilsbox fixed flex items-center gap-x-3 top-0 right-0 mr-4 px-4 py-3 mt-6 z-[999]"
       )}
     >
       {children}
