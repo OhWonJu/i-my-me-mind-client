@@ -94,7 +94,7 @@ const ScheduleListItem = ({
   return (
     <div onDoubleClick={() => onItemDubleClick(node.nodeId)}>
       <div className="flex flex-col mb-2 select-none cursor-pointer space-y-1">
-        <strong className="w-[60%] truncate">{node.nodeTitle}</strong>
+        <strong className="w-full truncate">{node.nodeTitle}</strong>
         <div className="flex justify-between items-center text-xs font-semibold text-primary/50">
           <span>
             할 일 {checklistItemCount > 999 ? "+999" : checklistItemCount}개
