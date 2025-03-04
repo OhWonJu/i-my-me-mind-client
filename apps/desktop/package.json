@@ -1,8 +1,9 @@
 {
-  "name": "desktop",
-  "description": "An Electron application with React and TypeScript",
+  "name": "imymemind",
+  "description": "A node based mindflow application",
+  "version": "0.0.0",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "pio96",
   "homepage": "https://electron-vite.org",
   "scripts": {
     "format": "prettier --write .",
@@ -10,13 +11,12 @@
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
-    "start": "electron-vite preview",
-    "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build",
-    "postinstall": "electron-builder install-app-deps",
-    "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win",
-    "build:mac": "electron-vite build && electron-builder --mac",
-    "build:linux": "electron-vite build && electron-builder --linux"
+    "start": "npx electron-vite preview",
+    "dev": "npx electron-vite dev",
+    "build": "npx electron-vite build",
+    "postinstall": "npx electron-builder install-app-deps",
+    "build:unpack": "yarn run build && npx electron-builder --dir",
+    "build:win": "yarn run build && npx electron-builder --win",
+    "build:mac": "yarn run build && npx electron-builder --mac"
   }
 }

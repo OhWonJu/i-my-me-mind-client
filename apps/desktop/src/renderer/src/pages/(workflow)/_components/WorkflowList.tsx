@@ -67,6 +67,7 @@ const WorkflowList = () => {
         isDashboard={true}
         deleteAction={() => null}
       />
+      <hr className="border-none mb-[6px]" />
       {workflowlist.map(item => (
         <WorkflowListItem
           key={item.id}

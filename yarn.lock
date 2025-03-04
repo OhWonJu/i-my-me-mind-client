@@ -8919,12 +8919,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"desktop@workspace:apps/desktop":
-  version: 0.0.0-use.local
-  resolution: "desktop@workspace:apps/desktop"
-  languageName: unknown
-  linkType: soft
-
 "destroy@npm:1.2.0, destroy@npm:^1.0.4":
   version: 1.2.0
   resolution: "destroy@npm:1.2.0"
@@ -12007,6 +12001,12 @@ __metadata:
   checksum: 10c0/8b51313850dd33605c6c9d3fd9638b714f4c4c40250cff658209f30d40da60f78992fb2df5dabee4acf589a6a82bbc79ad5486550754bd9ec4e3fc0d4a57d6a6
   languageName: node
   linkType: hard
+
+"imymemind@workspace:apps/desktop":
+  version: 0.0.0-use.local
+  resolution: "imymemind@workspace:apps/desktop"
+  languageName: unknown
+  linkType: soft
 
 "indent-string@npm:^4.0.0":
   version: 4.0.0
