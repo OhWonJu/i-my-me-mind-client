@@ -3,6 +3,9 @@ module.exports = {
   darkMode: ["class"],
   theme: {
     extend: {
+      screens: {
+        "h-md": { raw: "(min-height: 700px)" },
+      },
       fontSize: {
         "clamp-2xl": "var(--font-clamp-2xl)",
         "clamp-xl": "var(--font-clamp-xl)",
