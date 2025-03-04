@@ -33,7 +33,7 @@ const DashboardPage = () => {
   });
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full overflow-hidden overflow-y-scroll">
       <div className="sticky top-0 flex items-center justify-end h-[80px] mb-8 px-16 border-b bg-card">
         <Button
           variant="flat"

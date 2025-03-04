@@ -176,7 +176,7 @@ export const FlowEditorToolbar = ({
 
             {childrenWithPropsWithChildWrapper}
 
-            <button onClick={extend} className="flex w-full py-4 items-center">
+            {/* <button onClick={extend} className="flex w-full py-4 items-center">
               <div className="flex justify-center items-center min-w-[3rem]">
                 <Settings className="w-6 h-6 stroke-[1.5]" />
               </div>
@@ -188,7 +188,7 @@ export const FlowEditorToolbar = ({
               >
                 <span className="font-medium text-sm">설정</span>
               </div>
-            </button>
+            </button> */}
           </div>
         </OverlayScrollbarsComponent>
       </div>
