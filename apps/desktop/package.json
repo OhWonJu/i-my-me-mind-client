@@ -14,7 +14,6 @@
     "start": "npx electron-vite preview",
     "dev": "npx electron-vite dev",
     "build": "npx electron-vite build",
-    "postinstall": "npx electron-builder install-app-deps",
     "build:unpack": "yarn run build && npx electron-builder --dir",
     "build:win": "yarn run build && npx electron-builder --win",
     "build:mac": "yarn run build && npx electron-builder --mac"
