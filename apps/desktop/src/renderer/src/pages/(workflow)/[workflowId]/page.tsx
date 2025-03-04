@@ -1,14 +1,17 @@
 import { Suspense } from "react";
+import { useParams } from "react-router-dom";
 import { ReactFlowProvider } from "@xyflow/react";
 
 import WorkflowView from "../_components/WorkflowView";
 
 const WorkflowPage = () => {
+  const { workflowId } = useParams();
+
   return (
-    <div id="workflow-page" className="relative w-full h-full">
+    <div key={workflowId} className="relative w-full h-full">
       <Suspense>
         <ReactFlowProvider>
-          <WorkflowView />
+          <WorkflowView workflowId={workflowId} />
         </ReactFlowProvider>
       </Suspense>
     </div>

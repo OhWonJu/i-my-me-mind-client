@@ -52,7 +52,15 @@ export const uploadThumbnail = async (
       fs.mkdirSync(basePath, { recursive: true });
     }
 
-    const filePath = join(basePath, "thumbnail.png");
+    const existingFiles = fs.readdirSync(basePath);
+    existingFiles.forEach(file => {
+      if (file.startsWith("thumbnail-") && file.endsWith(".png")) {
+        fs.unlinkSync(join(basePath, file));
+      }
+    });
+
+    const timestamp = Date.now();
+    const filePath = join(basePath, `thumbnail-${timestamp}.png`);
 
     fs.writeFileSync(filePath, new Uint8Array(fileData));
 

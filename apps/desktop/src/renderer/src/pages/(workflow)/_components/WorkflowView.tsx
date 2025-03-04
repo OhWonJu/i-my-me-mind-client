@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { uploadSafeFile } from "@renderer/libs/uploads";
@@ -21,8 +20,10 @@ import Schedule from "@imymemind/core/domain/workflow/_components/utilityCompone
 import WorkflowList from "./WorkflowList";
 import SaveButton from "./SaveButton";
 
-const WorkflowView = () => {
-  const { workflowId } = useParams();
+const WorkflowView = ({ workflowId }: { workflowId: string }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  const currentWorkflowId = useRef(workflowId);
 
   const { data } = useSuspenseQuery(getWorkflowDetail(workflowId));
   useSuspenseQuery(getWorkflowList());
@@ -36,27 +37,41 @@ const WorkflowView = () => {
     await uploadSafeFile(workflowId, file);
 
   // Asset Clearup & create thumbnail
-  useEffect(() => {
-    const requestedAssets = new Set<string>();
+  useLayoutEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true);
+      return;
+    }
+
+    let requestedAssets = new Set<string>();
 
     const collectExistingImages = () => {
-      const workflowPageElement = document.getElementById("workflow-page");
-      workflowPageElement.querySelectorAll("img").forEach(img => {
+      // const workflowPageElement = document.getElementById("workflow-page");
+      const flowElement = document.querySelector(".react-flow__viewport");
+      if (!flowElement) {
+        requestedAssets = null;
+        return;
+      }
+
+      flowElement.querySelectorAll("img").forEach(img => {
         requestedAssets.add(img.src);
       });
     };
 
     const handleUnload = async () => {
       collectExistingImages();
-      clearAssets(workflowId, Array.from(requestedAssets));
+
+      if (!currentWorkflowId.current) return;
+      if (requestedAssets === null) return;
+
+      clearAssets(currentWorkflowId.current, Array.from(requestedAssets));
     };
 
-    window.addEventListener("beforeunload", handleUnload);
-
+    // beforeunmount
     return () => {
-      window.removeEventListener("beforeunload", handleUnload);
+      handleUnload();
     };
-  }, []);
+  }, [isMounted]);
 
   return (
     <WorkflowInfoContext.Provider value={{ role, editable, uploadHandler }}>

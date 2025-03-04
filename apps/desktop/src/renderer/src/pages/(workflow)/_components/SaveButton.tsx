@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useReactFlow } from "@xyflow/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -22,6 +22,8 @@ const SaveButton = ({
   workflowId: string;
   workflowName: string;
 }) => {
+  const [isMounted, setIsMounted] = useState(false);
+
   const thumbnailFileRef = useRef<File | null>(null);
 
   const { editable } = useWorkflowInfoContext();
@@ -66,27 +68,41 @@ const SaveButton = ({
     mutationFn: async () => await updateHandler(),
     onSuccess: () => {
       throttledCreateThumbnail();
+
       // TODO : 리스트 정보를 갱신해야하는 경우만 invalidate 하도록 개선
       queryClient.invalidateQueries({
         queryKey: workflowsQueryKeys.getWorkflowList,
       });
+      queryClient.invalidateQueries({
+        queryKey: workflowsQueryKeys.getWorkflowDetailKey(workflowId),
+      });
+
       toast.success("마인드플로우 저장이 완료되었어요.");
     },
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (!isMounted) {
+      setIsMounted(true);
+      return;
+    }
+
     const handleUploadThumbnail = async () => {
       if (thumbnailFileRef.current) {
         await uploadThumbnail(workflowId, thumbnailFileRef.current);
+        queryClient.invalidateQueries({
+          queryKey: workflowsQueryKeys.getWorkflowList,
+        });
       }
     };
 
-    window.addEventListener("beforeunload", handleUploadThumbnail);
+    // window.addEventListener("hashchange", handleUploadThumbnail);
 
     return () => {
-      window.removeEventListener("beforeunload", handleUploadThumbnail);
+      handleUploadThumbnail();
+      // window.removeEventListener("hashchange", handleUploadThumbnail);
     };
-  }, []);
+  }, [isMounted]);
 
   return <SaveButtonComponent updateHandler={update} />;
 };
