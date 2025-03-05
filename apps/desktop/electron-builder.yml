@@ -13,11 +13,11 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: ${productName}
+  executableName: I MY ME MIND
 nsis:
-  artifactName: ${productName}-${version}-setup.${ext}
-  shortcutName: ${productName}
-  uninstallDisplayName: ${productName}
+  artifactName: i_my_me_mind-${version}-setup.${ext}
+  shortcutName: I MY ME MIND
+  uninstallDisplayName: I MY ME MIND_uninstall
   createDesktopShortcut: always
   language: "1042"
 mac:
