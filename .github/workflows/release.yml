@@ -1,0 +1,49 @@
+name: Build/release Electron app
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: build-mac
+        if: matrix.os == 'macos-latest'
+        run: yarn nx build:mac imymemind
+
+      - name: build-win
+        if: matrix.os == 'windows-latest'
+        run: yarn nx build:win imymemind
+
+      - name: release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.yml
+            dist/*.blockmap
+        env:
+          github_token: ${{ secrets.ACCESS_TOKEN }}
+          mac_certs: ${{ secrets.MAC_CERTS }}
+          mac_certs_password: ${{ secrets.MAC_CERTS_PASSWORD }}
+          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
