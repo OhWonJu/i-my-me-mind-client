@@ -36,12 +36,11 @@ jobs:
       - name: release
         uses: softprops/action-gh-release@v1
         with:
-          draft: true
           files: |
-            dist/*.exe
-            dist/*.dmg
-            dist/*.yml
-            dist/*.blockmap
+            apps/desktop/dist/*.exe
+            apps/desktop/dist/*.dmg
+            apps/desktop/dist/*.yml
+            apps/desktopdist/*.blockmap
         env:
           github_token: ${{ secrets.github_token }}
           mac_certs: ${{ secrets.MAC_CERTS }}
