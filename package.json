@@ -1,6 +1,6 @@
 {
   "name": "@imymemind/source",
-  "version": "0.0.0",
+  "version": "0.0.0-beta",
   "license": "MIT",
   "private": true,
   "workspaces": [

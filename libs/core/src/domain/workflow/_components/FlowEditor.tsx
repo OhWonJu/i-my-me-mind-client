@@ -152,7 +152,6 @@ const FlowEditor = ({ workflow }: { workflow: Workflow }) => {
         isValidConnection={isValidConnection}
         minZoom={0.2}
         nodesDraggable={editable}
-        elementsSelectable={editable}
         snapToGrid={true}
         attributionPosition="bottom-left"
         // proOptions={{ hideAttribution: true }}
