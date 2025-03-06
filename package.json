@@ -80,6 +80,7 @@
     "autoprefixer": "10.4.13",
     "electron": "^34.2.0",
     "electron-builder": "^25.1.8",
+    "electron-builder-notarize": "^1.5.2",
     "electron-vite": "^3.0.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "14.2.5",

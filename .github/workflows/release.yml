@@ -25,15 +25,26 @@ jobs:
       - name: Install Dependencies
         run: yarn install
 
-      - name: build-mac
-        if: matrix.os == 'macos-latest'
-        run: yarn nx build:mac imymemind
+      - name: Prepare for app notarization (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          mkdir -p ~/private_keys/
+          echo '${{ secrets.APPLE_API_KEY }}' > ~/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
 
-      - name: build-win
-        if: matrix.os == 'windows-latest'
-        run: yarn nx build:win imymemind
+      - name: Build
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          package_root: apps/desktop
+          github_token: ${{ secrets.github_token }}
+          mac_certs: ${{ secrets.MAC_CERTS }}
+          mac_certs_password: ${{ secrets.MAC_CERTS_PASSWORD }}
+        env:
+          # macOS notarization API key
+          APPLE_API_KEY: /Users/runner/private_keys/AuthKey_${{ secrets.APPLE_API_KEY_ID }}.p8
+          APPLE_API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
 
-      - name: release
+      - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
@@ -43,6 +54,3 @@ jobs:
             apps/desktopdist/*.blockmap
         env:
           github_token: ${{ secrets.github_token }}
-          mac_certs: ${{ secrets.MAC_CERTS }}
-          mac_certs_password: ${{ secrets.MAC_CERTS_PASSWORD }}
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}

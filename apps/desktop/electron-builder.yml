@@ -1,4 +1,4 @@
-appId: com.imymemind.desktop
+appId: com.imymemind.imymemind
 productName: I MY ME MIND
 electronVersion: 34.2.0
 directories:
@@ -12,6 +12,7 @@ files:
   - "!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}"
 asarUnpack:
   - resources/**
+afterSign: electron-builder-notarize
 win:
   executableName: I MY ME MIND
 nsis:
@@ -21,7 +22,16 @@ nsis:
   createDesktopShortcut: always
   language: "1042"
 mac:
-  entitlementsInherit: build/entitlements.mac.plist
+  target:
+    - target: default
+      arch: universal
+    # - target: default
+    # arch: x64
+    # - target: default
+    # arch: arm64
+  entitlements: resources/entitlements.mac.plist
+  entitlementsInherit: resources/entitlements.mac.plist
+  hardenedRuntime: true
   extendInfo:
     CFBundleDevelopmentRegion: ko-KR
     CFBundleLocalizations:
@@ -31,9 +41,10 @@ mac:
     NSMicrophoneUsageDescription: Application requests access to the device's microphone.
     NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
     NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
-  notarize: false
+  notarize: true
 dmg:
-  artifactName: ${productName}-${version}.${ext}
+  # artifactName: I MY ME MIND-${version}-${arch}.${ext}
+  artifactName: I MY ME MIND-${version}.${ext}
 npmRebuild: false
 # publish:
 # provider: generic

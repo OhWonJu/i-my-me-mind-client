@@ -4,7 +4,11 @@
   "version": "0.0.0",
   "main": "./out/main/index.js",
   "author": "pio96",
-  "homepage": "https://electron-vite.org",
+  "homepage": "https://github.com/OhWonJu/i-my-me-mind-client",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OhWonJu/i-my-me-mind-client"
+  },
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint --cache .",
@@ -14,6 +18,7 @@
     "start": "npx electron-vite preview",
     "dev": "npx electron-vite dev",
     "build": "npx electron-vite build",
+    "electron-builder": "npx electron-builder",
     "build:unpack": "yarn run build && npx electron-builder --dir",
     "build:win": "yarn run build && npx electron-builder --win",
     "build:mac": "yarn run build && npx electron-builder --mac"
