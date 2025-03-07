@@ -4,6 +4,8 @@ import { Metadata } from "next/dist/lib/metadata/types/metadata-interface";
 import "./globals.css";
 import "overlayscrollbars/overlayscrollbars.css";
 
+import Navigator from "@/components/Navigator";
+
 const pretendard = localFont({
   src: "../fonts/PretendardVariable.woff2",
   display: "swap",
@@ -23,7 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <body className={`${pretendard.className}`}>{children}</body>
+      <body className={`${pretendard.className}`}>
+        <main className="relative w-screen">
+          <Navigator />
+          {children}
+        </main>
+      </body>
     </html>
   );
 }
