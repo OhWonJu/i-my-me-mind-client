@@ -1,6 +1,14 @@
-import { app, shell, BrowserWindow, ipcMain, protocol } from "electron";
+import {
+  app,
+  shell,
+  BrowserWindow,
+  ipcMain,
+  protocol,
+  globalShortcut,
+} from "electron";
 import { electronApp, optimizer, is } from "@electron-toolkit/utils";
 import { join } from "path";
+
 import icon from "../../resources/icon.png?asset";
 
 import {
@@ -53,6 +61,10 @@ function createWindow(): void {
   } else {
     mainWindow.loadFile(join(__dirname, "../renderer/index.html"));
   }
+
+  globalShortcut.register("CommandOrControl+R", function () {
+    mainWindow.reload();
+  });
 }
 
 // This method will be called when Electron has finished
@@ -60,12 +72,13 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId("com.electron");
+  electronApp.setAppUserModelId("com.imymemind.imymemind");
 
   app.on("browser-window-created", (_, window) => {
     optimizer.watchWindowShortcuts(window);
   });
 
+  // IPC
   protocol.handle("safe-file", getSafeFile);
 
   ipcMain.handle("upload-safeFile", uploadSafeFile);
