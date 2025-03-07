@@ -2,7 +2,7 @@ appId: com.imymemind.imymemind
 productName: I MY ME MIND
 electronVersion: 34.2.0
 directories:
-  buildResources: build
+  buildResources: resources
 files:
   - "!**/.vscode/*"
   - "!src/*"
@@ -15,6 +15,7 @@ asarUnpack:
 afterSign: electron-builder-notarize
 win:
   executableName: I MY ME MIND
+  icon: resources/icon.ico
 nsis:
   artifactName: i_my_me_mind-${version}-setup.${ext}
   shortcutName: I MY ME MIND
@@ -29,6 +30,7 @@ mac:
     # arch: x64
     # - target: default
     # arch: arm64
+  icon: resources/icon.icns
   entitlements: resources/entitlements.mac.plist
   entitlementsInherit: resources/entitlements.mac.plist
   hardenedRuntime: true
