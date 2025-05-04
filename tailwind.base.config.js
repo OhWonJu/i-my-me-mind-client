@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
+        xs: { raw: "(min-width: 520px)" },
         "h-md": { raw: "(min-height: 700px)" },
       },
       fontSize: {

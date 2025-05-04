@@ -56,7 +56,7 @@ export const NodeBlocks = ({
       defer
       options={{ scrollbars: { autoHide: "scroll" } }}
     >
-      <div className="nowheel nodarg relative flex flex-col w-full bg-card-foreground overflow-hidden overflow-y-scroll">
+      <div className="nowheel nodarg relative flex flex-col w-full bg-card-foreground overflow-hidden overflow-y-scroll scrollbar-hide">
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId={`${nodeId}`}>
             {provided => (

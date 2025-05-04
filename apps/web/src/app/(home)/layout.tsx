@@ -1,12 +1,13 @@
-import { Background, BackgroundNode } from "./_components";
+import React, { PropsWithChildren } from "react";
 
-const HomeLayout = ({ children }: { children: React.ReactNode }) => {
+import Footer from "@/components/Footer";
+
+const HomeLayout = ({ children }: PropsWithChildren) => {
   return (
-    <main className="relative flex flex-col justify-center items-center bg-background w-screen h-screen overflow-hidden">
-      <Background />
-      <BackgroundNode />
+    <div className="flex flex-col w-full h-full ">
       {children}
-    </main>
+      <Footer />
+    </div>
   );
 };
 

@@ -4,8 +4,12 @@ import { Suspense } from "react";
 
 import { useModal } from "@imymemind/core/stores/useModalStore";
 
-import { AddBlockModal, DeleteNodeModal } from "../modelViews";
-import DeleteWorkflowModal from "../modelViews/DeleteWorkflowModal";
+import {
+  AddBlockModal,
+  CommonConfirmModal,
+  DeleteNodeModal,
+  DeleteWorkflowModal,
+} from "../modelViews";
 
 const ModalProvider = () => {
   const type = useModal(state => state.type);
@@ -13,6 +17,7 @@ const ModalProvider = () => {
   return (
     <Suspense>
       {type === "addBlock" && <AddBlockModal />}
+      {type === "commonConfirm" && <CommonConfirmModal />}
       {type === "deleteNode" && <DeleteNodeModal />}
       {type === "deleteWorkflow" && <DeleteWorkflowModal />}
     </Suspense>

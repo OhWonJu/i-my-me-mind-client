@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { uploadSafeFile } from "@renderer/libs/uploads";
