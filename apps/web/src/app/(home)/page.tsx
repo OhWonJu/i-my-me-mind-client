@@ -5,9 +5,9 @@ import DonationSection from "./_sections/DonationSection";
 
 const Home = () => {
   return (
-    <div>
+    <div className="relative">
       <HeroSection />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <GuideSection />
       <DonationSection />
     </div>

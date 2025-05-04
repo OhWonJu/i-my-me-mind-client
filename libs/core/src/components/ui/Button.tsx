@@ -28,6 +28,7 @@ export interface ButtonProps
   disabled?: boolean;
   rippleColor?: string;
   useRipple?: boolean;
+  bubblingAble?: boolean;
   onClick?: (event: MouseEvent) => void;
 }
 
@@ -74,6 +75,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       onClick,
       rippleColor,
       useRipple,
+      bubblingAble,
       ...rest
     } = props;
 
@@ -82,8 +84,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const handleClick = useCallback(
       (event: MouseEvent<HTMLButtonElement>) => {
-        event.stopPropagation();
-        event.preventDefault();
+        if (!bubblingAble) {
+          event.stopPropagation();
+          event.preventDefault();
+        }
 
         onClick?.(event);
         useRipple && rippleRef.current?.createRipple(event);

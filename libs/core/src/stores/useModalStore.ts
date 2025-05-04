@@ -4,6 +4,7 @@ import { TaskBlockType } from "../types/task";
 
 export type ModalType =
   | "login"
+  | "commonConfirm"
   | "deleteWorkflow"
   | "addBlock"
   | "deleteNode"
@@ -27,6 +28,9 @@ interface ModalData {
   };
   workflowDelete?: {
     deleteAction?: Function;
+  };
+  commonConfirm?: {
+    confirmAction?: Function;
   };
 }
 

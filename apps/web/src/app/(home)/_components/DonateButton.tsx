@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const DonateButton = () => {
   return (
-    <div className="flex flex-col justify-center w-full items-center mt-16">
+    <div className="flex flex-col justify-center w-full items-center">
       <Link
         href="https://www.buymeacoffee.com/pio96devt"
         target="_blank"

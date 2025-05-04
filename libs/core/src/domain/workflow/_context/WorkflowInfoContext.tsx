@@ -5,7 +5,7 @@ import { CollaboratorRole } from "@imymemind/core/types/schema";
 export type WorkflowInfoContextType = {
   role?: CollaboratorRole;
   editable: boolean;
-  uploadHandler: (file: File) => Promise<string | Record<string, any>>;
+  uploadHandler?: (file: File) => Promise<string | Record<string, any>>;
 };
 
 export const WorkflowInfoContext = createContext<WorkflowInfoContextType>({

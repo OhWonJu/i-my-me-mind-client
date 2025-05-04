@@ -8,15 +8,26 @@ const GotoDownloadButton = ({ size }: { size?: ButtonProps["size"] }) => {
   const router = useRouter();
 
   return (
-    <Button
-      variant="flat"
-      size={size}
-      onClick={() => router.push("/downloads")}
-      useRipple
-      className="bg-blue-400"
-    >
-      무료로 시작하기
-    </Button>
+    <div className="relative">
+      <Button
+        variant="flat"
+        size={size}
+        onClick={() => router.push("/downloads")}
+        useRipple
+        className="bg-blue-400 hover:bg-blue-500"
+      >
+        무료로 시작하기
+      </Button>
+      <BetaBadge />
+    </div>
+  );
+};
+
+const BetaBadge = () => {
+  return (
+    <span className="absolute -bottom-[0.6rem] -right-[0.9rem] py-1 px-2 rounded-xl text-xs font-bold bg-primary text-secondary">
+      Beta
+    </span>
   );
 };
 

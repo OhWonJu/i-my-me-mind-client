@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import Container from "./ui/Container";
+import Container from "./Container";
 import { Github } from "./icons";
 
 const Footer = () => {
@@ -18,7 +18,7 @@ const Footer = () => {
             <Github className="w-5 h-5 fill-secondary-foreground" />
           </Link>
           <p className="text-xs">
-            © 2025 PIO(WonJu Oh). Licensed under the MIT License.{" "}
+            <span>© 2025 PIO(WonJu Oh). Licensed under the MIT License. </span>
             <span className="hidden sm:inline">Built with passion by PIO.</span>
           </p>
         </div>
