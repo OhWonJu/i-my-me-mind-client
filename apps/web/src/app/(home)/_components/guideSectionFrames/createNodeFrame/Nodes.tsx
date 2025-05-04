@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion, MotionValue, useAnimation } from "motion/react";
 
+import useActiveTooltipContext from "@/app/(home)/_context/ActiveTooltipContext";
+
 import { frameOrder } from "./CreateNodeFrame";
-import Image from "next/image";
 
 const Nodes = ({
   scrollYProgress,
@@ -12,6 +14,8 @@ const Nodes = ({
   scrollYProgress: MotionValue<number>;
 }) => {
   const [imageStep, setImageStep] = useState(0);
+
+  const { setActiveTooltip } = useActiveTooltipContext();
 
   const controls = useAnimation();
 
@@ -34,6 +38,7 @@ const Nodes = ({
         value >= frameOrder.nodesShow &&
         value < frameOrder.nodesShow + 0.01
       ) {
+        setActiveTooltip(1);
         setImageStep(1);
       }
 
@@ -49,6 +54,10 @@ const Nodes = ({
         value < frameOrder.nodeConnnectDone + 0.01
       ) {
         setImageStep(3);
+      }
+
+      if (value >= frameOrder.frameOut) {
+        setActiveTooltip(-1);
       }
 
       if (value < frameOrder.nodeAdded || value >= frameOrder.frameOut) {

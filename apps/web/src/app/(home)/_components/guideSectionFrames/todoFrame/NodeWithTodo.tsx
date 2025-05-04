@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { MotionValue, useAnimation, motion } from "motion/react";
 
+import useActiveTooltipContext from "@/app/(home)/_context/ActiveTooltipContext";
+
 import { frameOrder } from "./TodoFrame";
 
 import { cn } from "@imymemind/core/lib/utils";
@@ -21,6 +23,8 @@ const NodeWithTodo = ({
   scrollYProgress: MotionValue<number>;
 }) => {
   const [imageStep, setImageStep] = useState<ImageStepType>("NodeShow");
+
+  const { setActiveTooltip } = useActiveTooltipContext();
 
   const NodeImageUrlByStep = useMemo(() => {
     if (imageStep === "NodeShow") return "/guide_assets/todoNode.webp";
@@ -54,6 +58,7 @@ const NodeWithTodo = ({
         value >= frameOrder.hoverCalenderButton &&
         value < frameOrder.hoverCalenderButton + 0.01
       ) {
+        setActiveTooltip(6);
         setImageStep("HoverCalenderButton");
       }
 
@@ -68,6 +73,7 @@ const NodeWithTodo = ({
         value >= frameOrder.activeDDay &&
         value < frameOrder.activeDDay + 0.01
       ) {
+        setActiveTooltip(7);
         setImageStep("ActiveDDay");
       }
 
@@ -75,6 +81,7 @@ const NodeWithTodo = ({
         value >= frameOrder.doneTodos &&
         value < frameOrder.doneTodos + 0.01
       ) {
+        setActiveTooltip(8);
         setImageStep("DoneTodos");
       }
 

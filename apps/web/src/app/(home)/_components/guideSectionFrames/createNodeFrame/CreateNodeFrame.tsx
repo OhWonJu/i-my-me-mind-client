@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { MotionValue, useMotionValueEvent, useTransform } from "motion/react";
 
-import style from "../style.module.css";
-
-import { cn } from "@imymemind/core/lib/utils";
+import useActiveTooltipContext from "@/app/(home)/_context/ActiveTooltipContext";
 
 import Container from "@/components/Container";
 import Adding from "./Adding";
 import Nodes from "./Nodes";
+
+import style from "../style.module.css";
+
+import { cn } from "@imymemind/core/lib/utils";
 
 export const frameOrder = {
   toobarExtend: 0.03,
@@ -30,6 +32,8 @@ const CreateNodeFrame = ({
 }) => {
   const [toolbarExtendStep, setToolbarExtendStep] = useState(0);
 
+  const { setActiveTooltip } = useActiveTooltipContext();
+
   const toolbarExtendTrigger = useTransform(
     scrollYProgress,
     [
@@ -45,9 +49,17 @@ const CreateNodeFrame = ({
   );
 
   useMotionValueEvent(toolbarExtendTrigger, "change", latest => {
-    if (latest === 0) setToolbarExtendStep(0);
-    if (latest === 1) setToolbarExtendStep(1);
-    if (latest === 2) setToolbarExtendStep(2);
+    if (latest === 0) {
+      setToolbarExtendStep(0);
+    }
+    if (latest === 1) {
+      setActiveTooltip(-1);
+      setToolbarExtendStep(1);
+    }
+    if (latest === 2) {
+      setActiveTooltip(0);
+      setToolbarExtendStep(2);
+    }
     if (latest === 3) setToolbarExtendStep(3);
   });
 

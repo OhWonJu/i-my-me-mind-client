@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { MotionValue, useAnimation } from "motion/react";
 
+import useActiveTooltipContext from "@/app/(home)/_context/ActiveTooltipContext";
+
 import { frameOrder } from "./NodeEditFrame";
 import Node from "../frameItems/Node";
 
@@ -12,6 +14,8 @@ const NodeWithBox = ({
   scrollYProgress: MotionValue<number>;
 }) => {
   const [imageStep, setImageStep] = useState(0);
+
+  const { setActiveTooltip } = useActiveTooltipContext();
 
   const controls = useAnimation();
 
@@ -31,6 +35,7 @@ const NodeWithBox = ({
         value >= frameOrder.utilyBoxShow &&
         value < frameOrder.utilyBoxShow + 0.01
       ) {
+        setActiveTooltip(2);
         setImageStep(1);
       }
 
@@ -38,6 +43,7 @@ const NodeWithBox = ({
         value >= frameOrder.utilyBoxExtend &&
         value < frameOrder.utilyBoxExtend + 0.01
       ) {
+        setActiveTooltip(3);
         setImageStep(2);
       }
 

@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { MotionValue, useAnimation, motion } from "motion/react";
 
+import useActiveTooltipContext from "@/app/(home)/_context/ActiveTooltipContext";
+
 import { frameOrder } from "./TodoFrame";
 
 import { cn } from "@imymemind/core/lib/utils";
@@ -14,6 +16,8 @@ const AboutSchedule = ({
   scrollYProgress: MotionValue<number>;
 }) => {
   const [imageStep, setImageStep] = useState(0);
+
+  const { setActiveTooltip } = useActiveTooltipContext();
 
   const controls = useAnimation();
 
@@ -29,6 +33,7 @@ const AboutSchedule = ({
           opacity: 1,
           transition: { duration: 0.3 },
         });
+        setActiveTooltip(9);
         setImageStep(1);
       }
 
@@ -38,6 +43,8 @@ const AboutSchedule = ({
       ) {
         setImageStep(2);
       }
+
+      if (value >= frameOrder.frameOut) setActiveTooltip(-1);
 
       if (value < frameOrder.nodeShow || value >= frameOrder.frameOut) {
         controls.start({

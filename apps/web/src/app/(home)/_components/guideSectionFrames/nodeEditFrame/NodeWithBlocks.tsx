@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { MotionValue, useAnimation, motion } from "motion/react";
 
+import useActiveTooltipContext from "@/app/(home)/_context/ActiveTooltipContext";
+
 import { frameOrder } from "./NodeEditFrame";
 
 import { cn } from "@imymemind/core/lib/utils";
@@ -21,6 +23,8 @@ const NodeWithBlocks = ({
   scrollYProgress: MotionValue<number>;
 }) => {
   const [imageStep, setImageStep] = useState<ImageStepType>("HoverBlockDrag");
+
+  const { setActiveTooltip } = useActiveTooltipContext();
 
   const NodeImageUrlByStep = useMemo(() => {
     if (imageStep === "HoverBlockDrag" || imageStep === "DraggingBlock")
@@ -51,6 +55,7 @@ const NodeWithBlocks = ({
           opacity: 1,
           transition: { duration: 0.3 },
         });
+        setActiveTooltip(4);
         setImageStep("HoverBlockDrag");
       }
 
@@ -97,6 +102,7 @@ const NodeWithBlocks = ({
         value >= frameOrder.hoverBlockDelete &&
         value < frameOrder.hoverBlockDelete + 0.01
       ) {
+        setActiveTooltip(5);
         setImageStep("HoverBlockDelete");
       }
 
@@ -105,6 +111,10 @@ const NodeWithBlocks = ({
         value < frameOrder.afterBlockDelete + 0.01
       ) {
         setImageStep("AfterBlockDelete");
+      }
+
+      if (value >= frameOrder.frameOut) {
+        setActiveTooltip(-1);
       }
 
       if (value < frameOrder.nodeShow || value >= frameOrder.frameOut) {

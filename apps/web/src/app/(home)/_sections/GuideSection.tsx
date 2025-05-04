@@ -3,12 +3,15 @@
 import React, { useRef, useState } from "react";
 import { MotionValue, useMotionValueEvent, useScroll } from "motion/react";
 
+import { ActiveTooltipProvider } from "../_context/ActiveTooltipContext";
+
 import Container from "@/components/Container";
 import CreateNodeFrame from "../_components/guideSectionFrames/createNodeFrame/CreateNodeFrame";
 import NodeEditFrame from "../_components/guideSectionFrames/nodeEditFrame/NodeEditFrame";
 import TodoFrame from "../_components/guideSectionFrames/todoFrame/TodoFrame";
 
 import { cn } from "@imymemind/core/lib/utils";
+import Tooltip from "../_components/Tooltip";
 
 const FRAMES = [
   ({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) => (
@@ -67,7 +70,10 @@ const GuideSection = () => {
         <Container className="pt-[100px]">
           <h3 className="text-clamp-lg font-bold">사용 가이드</h3>
         </Container>
-        {FRAMES[activeFrame]({ scrollYProgress }) ?? null}
+        <ActiveTooltipProvider>
+          {FRAMES[activeFrame]({ scrollYProgress }) ?? null}
+          <Tooltip />
+        </ActiveTooltipProvider>
       </div>
     </div>
   );
