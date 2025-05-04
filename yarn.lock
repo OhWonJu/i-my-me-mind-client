@@ -2136,7 +2136,6 @@ __metadata:
     "@testing-library/dom": "npm:10.4.0"
     "@testing-library/react": "npm:16.1.0"
     "@types/body-scroll-lock": "npm:^3.1.2"
-    "@types/cookie": "npm:^1.0.0"
     "@types/node": "npm:18.16.9"
     "@types/react": "npm:^18"
     "@types/react-dom": "npm:^18"
@@ -5471,15 +5470,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cookie@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@types/cookie@npm:1.0.0"
-  dependencies:
-    cookie: "npm:*"
-  checksum: 10c0/d471539d289c6d9c6ab2986a881b10a55c9e489c2d35da0d1bdbbabdca9a8125de4cbc007bb525060265c64c14288c690f991ba6d84eea8c6ddacaa150179557
-  languageName: node
-  linkType: hard
-
 "@types/d3-color@npm:*":
   version: 3.1.3
   resolution: "@types/d3-color@npm:3.1.3"
@@ -8336,13 +8326,6 @@ __metadata:
   version: 1.0.6
   resolution: "cookie-signature@npm:1.0.6"
   checksum: 10c0/b36fd0d4e3fef8456915fcf7742e58fbfcc12a17a018e0eb9501c9d5ef6893b596466f03b0564b81af29ff2538fd0aa4b9d54fe5ccbfb4c90ea50ad29fe2d221
-  languageName: node
-  linkType: hard
-
-"cookie@npm:*":
-  version: 1.0.2
-  resolution: "cookie@npm:1.0.2"
-  checksum: 10c0/fd25fe79e8fbcfcaf6aa61cd081c55d144eeeba755206c058682257cb38c4bd6795c6620de3f064c740695bb65b7949ebb1db7a95e4636efb8357a335ad3f54b
   languageName: node
   linkType: hard
 

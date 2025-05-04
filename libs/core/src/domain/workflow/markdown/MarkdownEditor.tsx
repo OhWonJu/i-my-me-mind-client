@@ -59,6 +59,7 @@ const MarkdownEditor = ({
 
   const [internalValue, setInternalValue] = useState(value);
 
+  // @ts-ignore
   const handleUpload = async (file: File) => await uploadHandler(file);
 
   const editor = useCreateBlockNote({
