@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 
 import { Button } from "@imymemind/core/components/ui";
-import Link from "next/link";
 import { useModal } from "@imymemind/core/stores/useModalStore";
 
 interface DownloadButtonGroupProps {

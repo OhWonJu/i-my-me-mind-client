@@ -30,7 +30,7 @@ const CommonConfirmModal = () => {
       <ModalBody>
         <div className="w-full text-center">
           <p className="text-sm">
-            Windowns 설치 파일은 아직 공증 받지 않았어요.
+            windows 설치 파일은 아직 공증 받지 않았어요.
             <br />
             설치 시 경고 문구가 출력될 수 있어요.
             <br />
