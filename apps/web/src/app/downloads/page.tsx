@@ -7,7 +7,7 @@ const getLatestRelease = async () => {
   const res = await fetch(
     "https://api.github.com/repos/OhWonJu/i-my-me-mind-client/releases/latest",
     {
-      cache: "force-cache",
+      cache: "no-cache",
     }
   );
 
