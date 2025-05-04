@@ -30,6 +30,7 @@ interface ModalData {
     deleteAction?: Function;
   };
   commonConfirm?: {
+    infomation?: string;
     confirmAction?: Function;
   };
 }

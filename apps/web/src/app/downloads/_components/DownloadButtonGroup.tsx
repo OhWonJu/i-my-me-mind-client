@@ -41,6 +41,7 @@ const DownloadButtonGroup = ({
         onClick={() =>
           onOpen("commonConfirm", {
             commonConfirm: {
+              infomation: `Windows 설치 파일은 아직 공증 받지 않았어요.\n설치 시 경고 문구가 출력될 수 있어요.\nI MY ME MIND 는 외부와 어떠한 통신도 하지 않아요.\n그러니 걱정하지 마세요.`,
               confirmAction: () => window.open(windowDownloadUrl, "_blank"),
             },
           })
