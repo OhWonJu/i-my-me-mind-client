@@ -141,6 +141,7 @@ const NodeWithBlocks = ({
           width={400}
           height={300}
           style={{ objectFit: "cover" }}
+          priority
         />
         <div className="absolute top-[60%] -right-[34.5%] w-[60%]">
           {imageStep === "DraggingBlock" && (
@@ -154,6 +155,7 @@ const NodeWithBlocks = ({
                 alt="block_dragging"
                 width={300}
                 height={200}
+                priority
               />
             </motion.div>
           )}

@@ -111,6 +111,7 @@ const NodeWithTodo = ({
           height={300}
           style={{ objectFit: "cover" }}
           unoptimized
+          priority
         />
         <div className="absolute top-[20%] -right-[40%] w-[65%]">
           {imageStep === "OpenCalender" && (
@@ -119,6 +120,7 @@ const NodeWithTodo = ({
               alt="block_dragging"
               width={300}
               height={200}
+              priority
             />
           )}
         </div>

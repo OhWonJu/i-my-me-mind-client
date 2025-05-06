@@ -57,6 +57,7 @@ const Adding = ({
         alt="node_add_button"
         fill
         style={{ objectFit: "cover", objectPosition: "left" }}
+        priority
       />
     </motion.div>
   );

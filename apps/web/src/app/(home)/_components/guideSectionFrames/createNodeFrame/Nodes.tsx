@@ -92,6 +92,7 @@ const Nodes = ({
           width={400}
           height={300}
           style={{ objectFit: "cover" }}
+          priority
         />
       </motion.div>
     </div>

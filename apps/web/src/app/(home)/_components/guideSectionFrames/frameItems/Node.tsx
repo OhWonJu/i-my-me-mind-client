@@ -37,6 +37,7 @@ const Node = ({
         width={400}
         height={300}
         style={{ objectFit: "cover" }}
+        priority
       />
       <div className="absolute top-[13%] w-full h-full">
         {showBox && (
@@ -46,6 +47,7 @@ const Node = ({
               alt="node_utily_box"
               width={25}
               height={25}
+              priority
             />
           </div>
         )}
@@ -56,6 +58,7 @@ const Node = ({
               alt="node_utily_box"
               width={125}
               height={125}
+              priority
             />
           </div>
         )}

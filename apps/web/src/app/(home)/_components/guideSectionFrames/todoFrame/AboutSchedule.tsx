@@ -71,12 +71,14 @@ const AboutSchedule = ({
               alt="schedule-button"
               width={145}
               height={50}
+              priority
             />
             <Image
               src="/guide_assets/saveButton.webp"
               alt="save-button"
               width={86}
               height={50}
+              priority
             />
           </div>
         )}
@@ -88,6 +90,7 @@ const AboutSchedule = ({
               width={300}
               height={400}
               unoptimized
+              priority
             />
           )}
         </div>

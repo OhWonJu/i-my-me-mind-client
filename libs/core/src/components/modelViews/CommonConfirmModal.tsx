@@ -32,14 +32,14 @@ const CommonConfirmModal = () => {
       </ModalBody>
       <ModalFooter>
         <div className="flex w-full justify-end space-x-2">
-          <Button
-            variant="outline"
-            className="bg-primary text-secondary hover:bg-primary/70"
-            onClick={onClose}
-          >
+          <Button variant="outline" className="" onClick={onClose}>
             <span className="pt-[2px] text-center content-center">취소</span>
           </Button>
-          <Button variant="outline" onClick={confirmButtonHandler}>
+          <Button
+            variant="flat"
+            className="bg-blue-400 hover:bg-blue-500"
+            onClick={confirmButtonHandler}
+          >
             <span className="pt-[2px] text-center content-center">
               다운로드 하기
             </span>

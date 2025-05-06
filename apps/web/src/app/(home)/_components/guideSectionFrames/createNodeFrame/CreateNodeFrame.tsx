@@ -94,6 +94,7 @@ const CreateNodeFrame = ({
               width={300}
               height={1}
               style={{ objectFit: "cover", objectPosition: "top" }}
+              priority
             />
           </div>
         </div>
