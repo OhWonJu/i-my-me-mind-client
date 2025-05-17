@@ -3,17 +3,29 @@
 import { TaskBlockType } from "@imymemind/core/types/task";
 import { BlockRegistry } from "@imymemind/core/lib/workflow/block/registry";
 
-import { useModal } from "@imymemind/core/stores/useModalStore";
+import { useTypeSafeModal } from "@imymemind/core/stores/useModalStore";
 
 import { ModalBody, ModalLayout } from "../ui/Modal";
 import { Button } from "../ui";
 
 const taskBlocks = BlockRegistry;
 
-const AddBlockModal = () => {
-  const { isOpen, onClose, data } = useModal();
+export interface AddBlockModalProps {
+  addAction?: ({
+    name,
+    helperText,
+    type,
+  }: {
+    name: string;
+    helperText?: string;
+    type: TaskBlockType;
+  }) => void;
+}
 
-  const blockAddHandler = data?.blockAdd?.addAction;
+const AddBlockModal = () => {
+  const { isOpen, onClose, data } = useTypeSafeModal<AddBlockModalProps>();
+
+  const blockAddHandler = data?.addAction;
 
   const addActionHandler = ({
     name,

@@ -10,10 +10,15 @@ import { TaskBlockType } from "@imymemind/core/types/task";
 import { cn } from "@imymemind/core/lib/utils";
 import { useOutsideClick } from "@imymemind/core/hooks/useOutsideClick";
 
-import { useModal } from "@imymemind/core/stores/useModalStore";
+import {
+  useModal,
+  useTypeSafeModal,
+} from "@imymemind/core/stores/useModalStore";
 
 import { Button } from "@imymemind/core/components/ui";
 import { CreateFlowNode } from "@imymemind/core/lib/workflow/createFlowNode";
+import { AddBlockModalProps } from "@imymemind/core/components/modelViews/AddBlockModal";
+import { DeleteNodeModalProps } from "@imymemind/core/components/modelViews/DeleteNodeModal";
 
 const NodeUtilityBox = ({
   nodeId,
@@ -28,7 +33,11 @@ const NodeUtilityBox = ({
 
   const containerRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
-  const { isOpen, onOpen } = useModal();
+  const { isOpen } = useModal();
+  const { onOpen: addBlockModalOpen } = useTypeSafeModal<AddBlockModalProps>();
+  const { onOpen: deleteNodeModalOpen } =
+    useTypeSafeModal<DeleteNodeModalProps>();
+
   const { getNode, updateNodeData, addNodes, deleteElements } = useReactFlow();
 
   const addNewBlock = ({
@@ -111,7 +120,7 @@ const NodeUtilityBox = ({
           <div className="flex flex-col">
             <Button
               onClick={() =>
-                onOpen("addBlock", { blockAdd: { addAction: addNewBlock } })
+                addBlockModalOpen("addBlock", { addAction: addNewBlock })
               }
               className="hover:bg-secondary/20"
             >
@@ -124,8 +133,8 @@ const NodeUtilityBox = ({
             </Button>
             <Button
               onClick={() =>
-                onOpen("deleteNode", {
-                  nodeDelete: { deleteAction: deleteNode },
+                deleteNodeModalOpen("deleteNode", {
+                  deleteAction: deleteNode,
                 })
               }
               className="hover:bg-red-600"

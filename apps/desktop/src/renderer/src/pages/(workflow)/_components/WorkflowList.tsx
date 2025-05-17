@@ -14,7 +14,7 @@ import { deleteWorkflow } from "@renderer/api/worflow/ipc";
 
 import { cn } from "@imymemind/core/lib/utils";
 
-import { useModal } from "@imymemind/core/stores/useModalStore";
+import { useTypeSafeModal } from "@imymemind/core/stores/useModalStore";
 
 import { DotMenu } from "@imymemind/core/components/icons";
 import {
@@ -23,12 +23,13 @@ import {
   PopoverTrigger,
 } from "@imymemind/core/components/ui/popover";
 import { Button } from "@imymemind/core/components/ui";
+import { DeleteWorkflowModalProps } from "@imymemind/core/components/modelViews/DeleteWorkflowModal";
 
 const WorkflowList = () => {
   const { workflowId } = useParams();
   const navigate = useNavigate();
 
-  const { onOpen } = useModal();
+  const { onOpen } = useTypeSafeModal<DeleteWorkflowModalProps>();
 
   const data = useQueryClient().getQueryData(
     workflowsQueryKeys.getWorkflowList
@@ -74,7 +75,7 @@ const WorkflowList = () => {
           item={item}
           deleteAction={() =>
             onOpen("deleteWorkflow", {
-              workflowDelete: { deleteAction: () => deleteMutate(item.id) },
+              deleteAction: () => deleteMutate(item.id),
             })
           }
         />

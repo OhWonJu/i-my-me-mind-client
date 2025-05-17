@@ -1,7 +1,5 @@
 import { create } from "zustand";
 
-import { TaskBlockType } from "../types/task";
-
 export type ModalType =
   | "login"
   | "commonConfirm"
@@ -11,35 +9,35 @@ export type ModalType =
   | "deleteBlock"
   | "deleteUser";
 
-interface ModalData {
-  blockAdd?: {
-    addAction?: ({
-      name,
-      helperText,
-      type,
-    }: {
-      name: string;
-      helperText?: string;
-      type: TaskBlockType;
-    }) => void;
-  };
-  nodeDelete?: {
-    deleteAction?: Function;
-  };
-  workflowDelete?: {
-    deleteAction?: Function;
-  };
-  commonConfirm?: {
-    infomation?: string;
-    confirmAction?: Function;
-  };
-}
+// interface ModalData {
+//   blockAdd?: {
+//     addAction?: ({
+//       name,
+//       helperText,
+//       type,
+//     }: {
+//       name: string;
+//       helperText?: string;
+//       type: TaskBlockType;
+//     }) => void;
+//   };
+//   nodeDelete?: {
+//     deleteAction?: Function;
+//   };
+//   workflowDelete?: {
+//     deleteAction?: Function;
+//   };
+//   commonConfirm?: {
+//     infomation?: string;
+//     confirmAction?: Function;
+//   };
+// }
 
-interface ModalStore {
+interface ModalStore<T = any> {
   type: ModalType | null;
-  data: ModalData | null;
+  data: T | null;
   isOpen: boolean;
-  onOpen: (type: ModalType, data?: ModalData) => void;
+  onOpen: (type: ModalType, data?: T) => void;
   onClose: () => void;
 }
 
@@ -50,3 +48,7 @@ export const useModal = create<ModalStore>(set => ({
   onOpen: (type, data) => set({ isOpen: true, type, data }),
   onClose: () => set({ type: null, data: null, isOpen: false }),
 }));
+
+export function useTypeSafeModal<T>() {
+  return useModal() as ModalStore<T>;
+}

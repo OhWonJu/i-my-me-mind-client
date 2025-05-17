@@ -1,14 +1,22 @@
 "use client";
 
-import { useModal } from "@imymemind/core/stores/useModalStore";
+import {
+  useModal,
+  useTypeSafeModal,
+} from "@imymemind/core/stores/useModalStore";
 
 import { ModalBody, ModalFooter, ModalLayout } from "../ui/Modal";
 import { Button } from "../ui";
 
-const DeleteWorkflowModal = () => {
-  const { isOpen, onClose, data } = useModal();
+export interface DeleteWorkflowModalProps {
+  deleteAction?: Function;
+}
 
-  const workflowDeleteHandler = data?.workflowDelete?.deleteAction;
+const DeleteWorkflowModal = () => {
+  const { isOpen, onClose, data } =
+    useTypeSafeModal<DeleteWorkflowModalProps>();
+
+  const workflowDeleteHandler = data?.deleteAction;
 
   const deleteButtonHandler = () => {
     workflowDeleteHandler?.();

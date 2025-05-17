@@ -1,14 +1,20 @@
 "use client";
 
-import { useModal } from "@imymemind/core/stores/useModalStore";
+import { useTypeSafeModal } from "@imymemind/core/stores/useModalStore";
 
 import { ModalBody, ModalFooter, ModalLayout } from "../ui/Modal";
 import { Button } from "../ui";
 
-const CommonConfirmModal = () => {
-  const { isOpen, onClose, data } = useModal();
+export interface CommonConfirmModalProps {
+  infomation?: string;
+  confirmContent?: string;
+  confirmAction?: Function;
+}
 
-  const { confirmAction, infomation } = data?.commonConfirm ?? {};
+const CommonConfirmModal = () => {
+  const { isOpen, onClose, data } = useTypeSafeModal<CommonConfirmModalProps>();
+
+  const { confirmContent, confirmAction, infomation } = data ?? {};
 
   const confirmButtonHandler = () => {
     confirmAction?.();
@@ -41,7 +47,7 @@ const CommonConfirmModal = () => {
             onClick={confirmButtonHandler}
           >
             <span className="pt-[2px] text-center content-center">
-              다운로드 하기
+              {confirmContent ?? "확인"}
             </span>
           </Button>
         </div>

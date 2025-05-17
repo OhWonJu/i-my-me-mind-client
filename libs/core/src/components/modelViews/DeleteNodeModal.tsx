@@ -2,15 +2,22 @@
 
 import React from "react";
 
-import { useModal } from "@imymemind/core/stores/useModalStore";
+import {
+  useModal,
+  useTypeSafeModal,
+} from "@imymemind/core/stores/useModalStore";
 
 import { ModalBody, ModalFooter, ModalLayout } from "../ui/Modal";
 import { Button } from "../ui";
 
-const DeleteNodeModal = () => {
-  const { isOpen, onClose, data } = useModal();
+export interface DeleteNodeModalProps {
+  deleteAction?: Function;
+}
 
-  const nodeDeletHandler = data?.nodeDelete?.deleteAction;
+const DeleteNodeModal = () => {
+  const { isOpen, onClose, data } = useTypeSafeModal<DeleteNodeModalProps>();
+
+  const nodeDeletHandler = data?.deleteAction;
 
   const deleteButtonHandler = () => {
     nodeDeletHandler?.();
